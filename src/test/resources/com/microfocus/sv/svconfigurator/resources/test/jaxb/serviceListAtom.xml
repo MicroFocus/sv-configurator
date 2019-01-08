@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title type="text">List of Virtual Services</title>
+    <subtitle type="text">Server URI=[http://16.55.172.63:6080/management/services?all=ALL&amp;projectId=], Product
+        Version=[3.1.32555.32523], Application Domain=[HP.SV.StandaloneServer.exe]
+    </subtitle>
+    <id>services</id>
+    <updated>2013-08-23T10:04:28+02:00</updated>
+    <entry>
+        <id>18d93068-cdcb-424f-9eb0-62d359a22a69</id>
+        <title type="text">Example Org Service</title>
+        <summary type="text">Id: 18d93068-cdcb-424f-9eb0-62d359a22a69, Mode: Simulating, Deployment: Ready, Data Model:
+            8757c788-744b-4e55-9322-e3c2e893080e, Performance Model: 07837fb5-2921-4ea7-af99-67b48c27c3d6, Session:
+            Lukas Vyhlidka@LukasVyhlidka_e/JSVConfigurator
+        </summary>
+        <updated>2013-08-23T10:04:28+02:00</updated>
+        <link rel="alternate" href="http://16.55.172.63:6080/management/services/18d93068-cdcb-424f-9eb0-62d359a22a69"/>
+        <DataModelId xmlns="">
+            <hashCode xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                -478649208
+            </hashCode>
+            <value xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                8757c788-744b-4e55-9322-e3c2e893080e
+            </value>
+        </DataModelId>
+        <PerformanceModelId xmlns="">
+            <hashCode xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                13305317
+            </hashCode>
+            <value xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                07837fb5-2921-4ea7-af99-67b48c27c3d6
+            </value>
+        </PerformanceModelId>
+        <ServiceMode xmlns="">Simulating</ServiceMode>
+        <VirtualServiceDeploymentState xmlns="">Ready</VirtualServiceDeploymentState>
+        <VirtualServiceDeploymentErrorMessage xmlns="">Performance model requested in virtual service runtime
+            configuration [PMId=07837fb5-2921-4ea7-af99-67b48c27c3d6] does not exist.
+        </VirtualServiceDeploymentErrorMessage>
+        <ProjectId xmlns="">
+            <hashCode xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                -192905129
+            </hashCode>
+            <value xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                {783F07FB-9C80-4D45-91D3-DFC9406BF288}
+            </value>
+        </ProjectId>
+        <ProjectName xmlns="">Rest Management</ProjectName>
+        <SessionClientId xmlns="">Lukas Vyhlidka@LukasVyhlidka_e/JSVConfigurator</SessionClientId>
+        <NonExistentRealService xmlns="">false</NonExistentRealService>
+    </entry>
+    <entry>
+        <id>f6b58701-a616-46d1-83eb-330911a1ecfc</id>
+        <title type="text">Example Com Service</title>
+        <summary type="text">Id: f6b58701-a616-46d1-83eb-330911a1ecfc, Mode: StandBy, Deployment: Ready, Data Model: ,
+            Performance Model: , Session:
+        </summary>
+        <updated>2013-08-23T10:04:28+02:00</updated>
+        <link rel="alternate" href="http://16.55.172.63:6080/management/services/f6b58701-a616-46d1-83eb-330911a1ecfc"/>
+        <ServiceMode xmlns="">StandBy</ServiceMode>
+        <VirtualServiceDeploymentState xmlns="">Ready</VirtualServiceDeploymentState>
+        <ProjectId xmlns="">
+            <hashCode xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                -192905129
+            </hashCode>
+            <value xmlns="http://schemas.datacontract.org/2004/07/HP.SOAQ.ServiceVirtualization.Model.Api.Common">
+                {783F07FB-9C80-4D45-91D3-DFC9406BF288}
+            </value>
+        </ProjectId>
+        <ProjectName xmlns="">Rest Management</ProjectName>
+        <NonExistentRealService xmlns="">false</NonExistentRealService>
+    </entry>
+</feed>

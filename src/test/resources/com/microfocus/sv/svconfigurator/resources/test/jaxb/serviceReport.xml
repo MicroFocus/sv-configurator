@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<vs:runtimeReport messageCount="60" messageSize="3" numberOfErrors="1"
+                  numberOfWarnings="2" performanceModelAccuracy="76"
+                  serviceId="18d93068-cdcb-424f-9eb0-62d359a22a69"
+                  uniqueMessageCount="9" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+    <vs:simulationStatistics defaultRuleUsedCount="0" requestsCount="30"
+                             requestsNotIncreasingCostCount="33"
+                             simulationQualityPercentage="99"
+                             statefulResponsesReturnedCount="16" totalStatelessSimulationAccuracy="37.6666667"/>
+    <vs:clientIds>
+        <vs:clientId>16.55.172.69</vs:clientId>
+        <vs:clientId>16.55.172.70</vs:clientId>
+    </vs:clientIds>
+    <vs:hostnames>
+        <vs:hostname>Luke Skywalker</vs:hostname>
+        <vs:hostname>Darth Vader</vs:hostname>
+    </vs:hostnames>
+</vs:runtimeReport>

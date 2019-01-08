@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Svunlock Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svunlock</a></h2>
+<h3>Description</h3>
+<p>The task is used to unlock the locked service on the Service Virtualization server.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">No (if you use the projectFile parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">service</td>
+    <td valign="top">The name of the service (or its ID) we want to unlock (lock, respectively).</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">lock</td>
+    <td valign="top">Whether we want to lock the service (with our client ID) right after the unlocking (default is no).</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svunlock url="https://localhost:6085" username="HPSV" password="secret" service="My Virtual Service" />
+</pre>
+Unlocks the service called "My Virtual Service".
+
+<pre>
+    &lt;svunlock url="https://localhost:6085" username="HPSV" password="secret" service="My Virtual Service" lock="yes" />
+</pre>
+Locks the service called "My Virtual Service" with your client ID (even if it is locked by another user).
+
+</body>
+</html>

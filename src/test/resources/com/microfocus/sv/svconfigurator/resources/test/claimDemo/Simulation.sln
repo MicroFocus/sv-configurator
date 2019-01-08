@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.1.3.0
+Project("") = "Simulation", "Simulation.vproj", "{9B3A0C94-3965-4342-90F4-995D626F5A39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B3A0C94-3965-4342-90F4-995D626F5A39}.Debug|x86.Build.0 = Debug|x86
+		{9B3A0C94-3965-4342-90F4-995D626F5A39}.Debug|x86.ActiveCfg = Debug|x86
+		{9B3A0C94-3965-4342-90F4-995D626F5A39}.Release|x86.Build.0 = Release|x86
+		{9B3A0C94-3965-4342-90F4-995D626F5A39}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+EndGlobal

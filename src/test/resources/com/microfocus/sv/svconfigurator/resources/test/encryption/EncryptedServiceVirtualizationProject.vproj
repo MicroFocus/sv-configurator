@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{366ABE23-60CD-4DD7-808E-8AEA19EA1DB8}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ServerIdentifier>https://localhost:6085/management</ServerIdentifier>
+    <ServerUrl>https://localhost:6085/management</ServerUrl>
+    <ProductVersion>3.0</ProductVersion>
+    <ProductEdition>Premium</ProductEdition>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Enc2 Data Model Dataset.vsdataset" />
+    <None Include="Enc2 Data Model.vsmodel" />
+    <None Include="Enc2 Service Description.vsdsc" />
+    <None Include="Enc2 Service Offline Performance.vspfmodel" />
+    <None Include="Enc2 Service Performance Model.vspfmodel" />
+    <None Include="EncryptedService.vs" />
+    <None Include="Enc2 Service.vsmf" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,84 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Svdeploy Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svdeploy</a></h2>
+<h3>Description</h3>
+<p>The task is used to deploy/undeploy/update the project (and it's services) to the Service Virtualization server.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+
+  <tr>
+    <td valign="top">projectFile</td>
+    <td valign="top">Project File (.vproj or .vproja) to be deployed. Project file has specified the server management url as well so we don't have to specify it separately (if you don't want to change it of course).</td>
+    <td align="center" valign="top">yes</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">No (if you use the projectFile parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">service</td>
+    <td valign="top">The name of the service (or its ID) we want to deploy. If you specify this parameter, the task won't deploy all the services from the project but only specified service.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">undeploy</td>
+    <td valign="top">If you specify (and set it to yes) this parameter, then the task will undeploy specified services from the project instead of their deployment.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">force</td>
+    <td valign="top">Force mode means that if the service to be deployed is locked by another user the task will automatically unlock it. 
+	If you don't use force mode and the service is locked, the deployment won't be accomplished. Be careful with this option because you can rewrite another user's data if you explicitly unlock the service.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svdeploy url="https://localhost:6085" username="HPSV" password="secret" projectFile="mySVProject.vproja" />
+</pre>
+Deploys all the services from the specified project (if some of these services had not already been deployed and are locked by another user).
+
+<pre>
+    &lt;svdeploy url="https://localhost:6085" username="HPSV" password="secret" projectFile="mySVProject.vproja" service="My Perfect Virtual Service" force="yes" />
+</pre>
+Deploys the service called "My Perfect Virtual Service" from the specified project (even if they have already been deployed and are locked by another user).
+
+<pre>
+    &lt;svdeploy url="https://localhost:6085" username="HPSV" password="secret" projectFile="mySVProject.vproja" undeploy="yes" />
+</pre>
+Undeploys all the services from the specified project (even if they have already been deployed and are locked by another user).
+
+</body>
+</html>

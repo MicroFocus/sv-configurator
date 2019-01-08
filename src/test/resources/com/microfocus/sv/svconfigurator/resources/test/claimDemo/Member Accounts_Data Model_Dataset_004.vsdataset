@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ds version="3.50.1718.37796" id="55602836-ddb0-4054-af84-de4bea0be4c1" vsId="67242b01-3ed5-4127-aab1-639c953ca86c" dmId="7e84f205-806f-4fa5-9ce6-11b8ac44cfa1" sorId="32c1c762-3d84-4d38-9839-198f6eca3bdf" hc="-1394502469" xmlns="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <sc id="c2c81d78-62cf-41ea-a812-d95fb3e29f28" ts="0001-01-01T00:00:00Z" ri="1" rc="1">
+    <ntId p="11:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_getMemberDetail_InputMessage</ntId>
+    <ec p="12:1" />
+    <ec p="13:1" />
+    <ntId p="4:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_getMemberDetail_OutputMessage</ntId>
+    <ec p="5:1" />
+    <s p="24:1">sim_default_city</s>
+    <s p="25:1">sim_default_country</s>
+    <s p="26:1">1970-01-01T00:00:00</s>
+    <s p="27:1">sim_default_line1</s>
+    <s p="28:1">sim_default_line2</s>
+    <s p="29:1">1970-01-01T00:00:00</s>
+    <s p="30:1">sim_default_state</s>
+    <s p="31:1">sim_default_zip</s>
+    <s p="20:1">0</s>
+    <s p="21:1">0</s>
+    <s p="32:1">1970-01-01T00:00:00</s>
+    <s p="33:1">MALE</s>
+    <s p="39:1">sim_default_firstName</s>
+    <s p="40:1">sim_default_lastName</s>
+    <s p="41:1">sim_default_middleName</s>
+    <s p="42:1">sim_default_prefix</s>
+    <s p="43:1">sim_default_suffix</s>
+    <s p="35:1">sim_default_socialSecurityNumber</s>
+    <s p="36:1">sim_default_extension</s>
+    <s p="37:1">sim_default_phoneNumber</s>
+    <s p="38:1">DAY</s>
+  </sc>
+</ds>

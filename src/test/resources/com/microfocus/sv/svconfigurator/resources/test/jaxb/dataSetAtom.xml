@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <id>fecb9cb6-e0ed-41a2-a004-aa2489388e4b</id>
+    <title type="text">Dataset [fecb9cb6-e0ed-41a2-a004-aa2489388e4b]</title>
+    <summary type="text"/>
+    <updated>2013-08-26T09:10:39+02:00</updated>
+    <link
+            href="https://localhost:6085/management/services/18d93068-cdcb-424f-9eb0-62d359a22a69/dataModel/8757c788-744b-4e55-9322-e3c2e893080e/dataSet/fecb9cb6-e0ed-41a2-a004-aa2489388e4b/fecb9cb6-e0ed-41a2-a004-aa2489388e4b" rel="alternate"/>
+    <Version xmlns="">226066694</Version>
+</entry>

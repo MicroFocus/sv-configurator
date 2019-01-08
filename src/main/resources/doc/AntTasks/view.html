@@ -1,0 +1,72 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Svview Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svview</a></h2>
+<h3>Description</h3>
+<p>The task is used to view the state of the virtual service on Service Virtualization server.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+
+  <tr>
+    <td valign="top">projectFile</td>
+    <td valign="top">Project File (.vproj or .vproja) where is the desired service in. Project file has specified the server management url as well so we don't have to specify it separately (if you don't want to change it of course).</td>
+    <td align="center" valign="top">No (if you use the url parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">No (if you use the projectFile parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">service</td>
+    <td valign="top">The name of the service (or its ID) we want to view.</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">report</td>
+    <td valign="top">Whether we want to print the runtime report of the servie as well (default is no).</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svview url="https://localhost:6085" username="HPSV" password="secret" service="My Virtual Service" />
+</pre>
+Prints the basic info about the service called "My Virtual Sevice".
+
+<pre>
+    &lt;svview url="https://localhost:6085" username="HPSV" password="secret" service="My Super Virtual Service" report="yes" />
+</pre>
+Prints the basic info plus the runtime report of the service called "My Super Virtual Sevice".
+
+</body>
+</html>

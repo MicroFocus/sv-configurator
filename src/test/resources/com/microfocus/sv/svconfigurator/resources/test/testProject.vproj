@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{485302DB-BB2A-45D3-B747-87DF1033EF9B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ServerIdentifier>urn:Embedded Server</ServerIdentifier>
+    <ServerUrl>http://localhost:7280/management</ServerUrl>
+    <ProductVersion>3.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="IBM IMS TM Data Model Dataset 000.vsdataset" />
+    <None Include="IBM IMS TM Data Model Dataset.vsdataset" />
+    <None Include="IBM IMS TM Data Model.vsmodel" />
+  </ItemGroup>
+</Project>

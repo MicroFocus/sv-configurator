@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ds version="3.50.1718.37796" id="a89a07bf-aaad-44ca-8c96-45dd177a5fa5" vsId="67242b01-3ed5-4127-aab1-639c953ca86c" dmId="7e84f205-806f-4fa5-9ce6-11b8ac44cfa1" sorId="a2fa6d7e-fc1d-4aa0-8176-fde7b0fd6c3b" hc="1210143512" xmlns="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <sc id="aa5e72a9-db5a-48b0-bf65-220cae31ff0b" ts="0001-01-01T00:00:00Z" ri="1" rc="1">
+    <ntId p="11:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_getMemberPlan_InputMessage</ntId>
+    <ec p="12:1" />
+    <ec p="13:1" />
+    <ntId p="4:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_getMemberPlan_OutputMessage</ntId>
+    <ec p="5:1" />
+    <s p="19:1">0</s>
+    <s p="20:1">0</s>
+    <s p="21:1">sim_default_name</s>
+  </sc>
+</ds>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vs:topology version="3.50.1718.37796" id="a73a4968-4886-4e5d-888f-483ee3ed6ba2" name="Topology1" description="Topology1 description" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <vs:topologyLayer limitedAccessibility="False" id="ca8023a6-fe2c-4118-9cb2-7de6fdd0a39b" name="Main Layer">
+    <vs:serviceContainer limitedAccessibility="False" id="0272284d-2c4f-48e0-ac5b-d7c35392e10d" name="Application Under Test">
+      <vs:metadata name="graph.location.x">450</vs:metadata>
+      <vs:metadata name="graph.location.y">330</vs:metadata>
+      <vs:metadata name="graph.size.width">550</vs:metadata>
+      <vs:metadata name="graph.size.height">250</vs:metadata>
+      <vs:topologyService limitedAccessibility="False" markedForTest="False" requiresAuthentication="False" endpoint="BasicHttpBinding_IClaimProcessing" serviceDescriptionId="fb5b5e24-7714-47be-9839-3ed56e2f1767" id="4472ef95-76b6-403b-b63e-3e333ad2b60b" name="Claim Processing">
+        <vs:metadata name="graph.location.x">500</vs:metadata>
+        <vs:metadata name="graph.location.y">440</vs:metadata>
+        <vs:metadata name="graph.size.width">120</vs:metadata>
+        <vs:metadata name="graph.size.height">30</vs:metadata>
+      </vs:topologyService>
+      <vs:topologyService limitedAccessibility="True" markedForTest="False" requiresAuthentication="False" endpoint="BasicHttpBinding_IMemberAccounts" serviceDescriptionId="7c4c2b60-e3e3-48d2-8f5b-2bea99dd3ce7" id="37637f5c-6890-4776-bdba-9cf3675b1abd" name="Member Accounts">
+        <vs:metadata name="graph.location.x">760</vs:metadata>
+        <vs:metadata name="graph.location.y">440</vs:metadata>
+        <vs:metadata name="graph.size.width">120</vs:metadata>
+        <vs:metadata name="graph.size.height">30</vs:metadata>
+        <vs:metadata name="topology.virtualSevice.id">67242b01-3ed5-4127-aab1-639c953ca86c</vs:metadata>
+      </vs:topologyService>
+    </vs:serviceContainer>
+    <vs:topologyService limitedAccessibility="False" markedForTest="True" requiresAuthentication="False" id="5b8894e4-2ae2-4b72-bad8-41be353ff338" name="GUI Client">
+      <vs:metadata name="graph.location.x">220</vs:metadata>
+      <vs:metadata name="graph.location.y">440</vs:metadata>
+      <vs:metadata name="graph.size.width">120</vs:metadata>
+      <vs:metadata name="graph.size.height">30</vs:metadata>
+    </vs:topologyService>
+  </vs:topologyLayer>
+  <vs:virtualLayer id="e09dd23c-ff63-47f8-a70c-2b5fef47ec52" name="Virtualized Layer">
+    <vs:virtualService ref="6ee6b720-2a80-4dd7-b4e5-46977379b445" />
+    <vs:virtualService ref="1e7c50ea-968e-40eb-ad82-4981dd70b89d" />
+    <vs:virtualService ref="edce7cee-a1dd-4609-b173-66d0f7b77ea0" />
+    <vs:virtualService ref="b9d86ac2-12dd-42d7-9b24-4fe63addfe90" />
+    <vs:virtualService ref="751cb0c4-26ac-4ac2-a923-a35742dcaf6d" />
+    <vs:virtualService ref="67242b01-3ed5-4127-aab1-639c953ca86c" />
+  </vs:virtualLayer>
+  <vs:testCaseLayer id="9be7ce3c-1026-44b8-bba2-372b543e1d05" name="Test Case Layer" />
+  <vs:topologyRelation>
+    <vs:source ref="5b8894e4-2ae2-4b72-bad8-41be353ff338" />
+    <vs:target ref="4472ef95-76b6-403b-b63e-3e333ad2b60b" />
+    <vs:metadata name="graph.bends.count">2</vs:metadata>
+    <vs:metadata name="graph.bend0.X">420</vs:metadata>
+    <vs:metadata name="graph.bend0.Y">455</vs:metadata>
+    <vs:metadata name="graph.bend1.X">420</vs:metadata>
+    <vs:metadata name="graph.bend1.Y">455</vs:metadata>
+  </vs:topologyRelation>
+  <vs:topologyRelation>
+    <vs:source ref="4472ef95-76b6-403b-b63e-3e333ad2b60b" />
+    <vs:target ref="37637f5c-6890-4776-bdba-9cf3675b1abd" />
+    <vs:metadata name="graph.bends.count">2</vs:metadata>
+    <vs:metadata name="graph.bend0.X">690</vs:metadata>
+    <vs:metadata name="graph.bend0.Y">455</vs:metadata>
+    <vs:metadata name="graph.bend1.X">690</vs:metadata>
+    <vs:metadata name="graph.bend1.Y">455</vs:metadata>
+  </vs:topologyRelation>
+</vs:topology>

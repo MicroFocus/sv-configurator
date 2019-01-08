@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ds version="3.50.1718.37796" id="3474e287-7144-47e2-8798-ceca071058f8" vsId="2b3e6023-d0e7-49dd-b6bf-24ee9f39e2d4" dmId="b2259412-69f9-42fa-abba-f2ba69ad876f" sorId="cbd5dfe2-e5b1-4da8-8675-f060a4780f2b" hc="1353117877" xmlns="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <sc id="e41ac684-7725-4308-aa0b-c1cf51af5d47" ts="2013-10-03T14:02:12.0096853Z" ri="1" rc="1">
+    <ntId p="6:1">empty</ntId>
+    <ntId p="4:1">empty</ntId>
+    <s p="8:1">200</s>
+    <s p="10:1">text/plain</s>
+  </sc>
+</ds>

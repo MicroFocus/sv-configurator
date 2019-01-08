@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Svundeploy Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svundeploy</a></h2>
+<h3>Description</h3>
+<p>The task is used to undeploy the project/service from the Service Virtualization server.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+
+  <tr>
+    <td valign="top">projectFile</td>
+    <td valign="top">Project File (.vproj or .vproja) to be undeployed. Project file has specified the server management url as well so we don't have to specify it separately (if you don't want to change it of course).</td>
+    <td align="center" valign="top">no</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">No (if you use the projectFile parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">service</td>
+    <td valign="top">The name of the service (or its ID) we want to undeploy.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">force</td>
+    <td valign="top">Force mode means that if the service to be undeployed is locked by another user the task will automatically unlock it. 
+	If you don't use force mode and the service is locked, the undeployment won't be accomplished. Be careful with this option because you can rewrite another user's data if you explicitly unlock the service.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svundeploy url="https://localhost:6085" username="HPSV" password="secret" projectFile="mySVProject.vproja" />
+</pre>
+Undeploys all the services from the specified project (if some of these services had not already been deployed and are locked by another user).
+
+<pre>
+    &lt;svundeploy url="https://localhost:6085" username="HPSV" password="secret" service="My Perfect Virtual Service" force="yes" />
+</pre>
+Deploys the service called "My Perfect Virtual Service" (even if they have already been deployed and are locked by another user).
+
+
+</body>
+</html>

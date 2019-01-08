@@ -1,0 +1,31 @@
+<taskList>
+  <testTask>
+    <topology>a73a4968-4886-4e5d-888f-483ee3ed6ba2</topology>
+    <pendingStep>Step3Record</pendingStep>
+    <serviceToTest>5b8894e4-2ae2-4b72-bad8-41be353ff338</serviceToTest>
+    <servicesToVirtualize>
+      <service selected="True">37637f5c-6890-4776-bdba-9cf3675b1abd</service>
+    </servicesToVirtualize>
+    <instructions>
+INSTRUCTIONS TO RECONFIGURE CLIENTS
+-------------------------------------
+
+Some services were virtualized. You need to reconfigure their clients to use endpoints of virtual services in place of real ones:
+
+Member Accounts
+-----------------
+
+	Virtual Endpoint: 
+
+		http://localhost:7200/MemberAccounts
+
+	Real Endpoint: 
+
+		http://localhost:8101/ServiceSimulation/Demo/MemberAccountsService/MemberAccountsService
+
+</instructions>
+    <servicesToRecord>
+      <virtualService>67242b01-3ed5-4127-aab1-639c953ca86c</virtualService>
+    </servicesToRecord>
+  </testTask>
+</taskList>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ds version="3.50.1718.37796" id="2b36e7e7-64af-4c1d-b28c-ba10e3e75c02" vsId="67242b01-3ed5-4127-aab1-639c953ca86c" dmId="7e84f205-806f-4fa5-9ce6-11b8ac44cfa1" sorId="5e7f5f92-1614-43d4-bc86-a407ced813ae" hc="761605283" xmlns="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <sc id="0bf2a933-b27d-43cc-9bfe-645a24b7df2f" ts="0001-01-01T00:00:00Z" ri="1" rc="1">
+    <ntId p="11:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_memberSearch_InputMessage</ntId>
+    <ec p="12:1" />
+    <ec p="13:1" />
+    <ntId p="4:1">{http://hp.com/SOAQ/ServiceSimulation/2010/demo/01}IMemberAccounts_memberSearch_OutputMessage</ntId>
+    <ec p="5:1" />
+    <s p="21:2">0</s>
+    <s p="22:2">0</s>
+    <s p="23:2">sim_default_socialSecurityNumber</s>
+  </sc>
+</ds>

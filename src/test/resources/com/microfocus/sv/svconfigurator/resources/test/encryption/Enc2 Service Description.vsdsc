@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vs:serviceDescription xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" version="3.50.1718.37796" id="6ffc6003-b772-41f1-b6d8-f16c9d964425" name="Enc2 Service Description" description="Service Description for Enc2 Service" protocol="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP/REST" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+  <vs:requestSessionIdLocator state="Set">
+    <vs:part node="xmlns(ns0=http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP)xpath(ns0:HTTPInputParameters)" type="xmlns(ns0=http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP)xpath(ns0:HTTPInputParameters/type::*)" />
+    <vs:part node="ClientAddress" type="xmlns(ns0=http://www.w3.org/2001/XMLSchema)xpath(type::ns0:string)" />
+  </vs:requestSessionIdLocator>
+  <vs:metadata name="SOAP:Address" type="xs:string" value="http://enc2/" />
+  <vs:schemata>
+    <xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/" elementFormDefault="qualified" targetNamespace="http://hp.com/SOAQ/ServiceVirtualization/2010/BINARY">
+      <xs:element name="BinaryContent" nillable="true">
+        <xs:complexType>
+          <xs:all>
+            <xs:element default="" name="Data" type="xs:base64Binary" />
+            <xs:element name="Filename" type="xs:string" />
+            <xs:element name="Mimetype" type="xs:string" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://hp.com/SOAQ/ServiceVirtualization/2011/JSON/Types" xmlns:ns0="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/" elementFormDefault="qualified" targetNamespace="http://hp.com/SOAQ/ServiceVirtualization/2011/JSON/Types">
+      <xs:element name="JSON" nillable="true" type="tns:JsonEmptyType" />
+      <xs:element name="JSONP" nillable="true" type="tns:JsonpRootType" />
+      <xs:complexType name="JsonpRootType">
+        <xs:all>
+          <xs:element name="Padding" type="xs:string" />
+          <xs:element ref="tns:JSON" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="JsonEmptyType" abstract="true" />
+    </xs:schema>
+    <xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sv="http://hp.com/SOAQ/ServiceVirtualization/2010/SDL" xmlns:ns0="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP">
+      <xs:element name="HTTPInputParameters">
+        <xs:complexType>
+          <xs:all>
+            <xs:element sv:operation-discriminator="UriPath" name="UriPath" type="xs:string" />
+            <xs:element name="ClientAddress" type="xs:string" />
+            <xs:element sv:custom-metadata="true" minOccurs="0" name="Parameters">
+              <xs:complexType>
+                <xs:all />
+              </xs:complexType>
+            </xs:element>
+            <xs:element sv:custom-metadata="true" minOccurs="0" name="UnnamedParameters">
+              <xs:complexType>
+                <xs:all />
+              </xs:complexType>
+            </xs:element>
+            <xs:element sv:custom-metadata="true" sv:default-new-ignore="true" minOccurs="0" name="Headers">
+              <xs:complexType>
+                <xs:all />
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Method">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="DELETE" />
+                  <xs:enumeration value="GET" />
+                  <xs:enumeration value="HEAD" />
+                  <xs:enumeration value="OPTIONS" />
+                  <xs:enumeration value="POST" />
+                  <xs:enumeration value="PUT" />
+                  <xs:enumeration value="TRACE" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Transport">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="HTTP" />
+                  <xs:enumeration value="HTTPS" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="HTTPOutputParameters">
+        <xs:complexType>
+          <xs:all>
+            <xs:element default="200" name="StatusCode">
+              <xs:simpleType>
+                <xs:restriction base="xs:int">
+                  <xs:minInclusive value="100" />
+                  <xs:maxInclusive value="599" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element sv:custom-metadata="true" minOccurs="0" name="Headers">
+              <xs:complexType>
+                <xs:all>
+                  <xs:element minOccurs="0" default="text/plain" name="Content-Type" type="xs:string" />
+                </xs:all>
+              </xs:complexType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </vs:schemata>
+  <vs:commonInput id="common-input">
+    <vs:part element="ns0:HTTPInputParameters" processor="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" />
+  </vs:commonInput>
+  <vs:commonOutput id="common-output">
+    <vs:part element="ns0:HTTPOutputParameters" processor="http://hp.com/SOAQ/ServiceVirtualization/2010/HTTP" />
+  </vs:commonOutput>
+  <vs:operations>
+    <vs:operation id="any-uri-operation" name="*">
+      <vs:metadata name="OperationDiscriminators">
+        <vs:operationDiscriminators>
+          <vs:operationDiscriminator name="UriPath">*</vs:operationDiscriminator>
+        </vs:operationDiscriminators>
+      </vs:metadata>
+      <vs:input>
+        <vs:message id="empty" name="No content" />
+      </vs:input>
+      <vs:output>
+        <vs:message id="empty" name="No content" />
+      </vs:output>
+      <vs:dataMaskings />
+    </vs:operation>
+  </vs:operations>
+</vs:serviceDescription>

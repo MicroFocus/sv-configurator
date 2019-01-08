@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Svlist Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svlist</a></h2>
+<h3>Description</h3>
+<p>The task is used to list the services that are deployed to Service Virtualization server.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+
+  <tr>
+    <td valign="top">projectFile</td>
+    <td valign="top">Project File (.vproj or .vproja) from which we want to list the services on the server. The project file also contains the server management URL so if you specify the project file you don't have to set the management url separately (but you can of course).</td>
+    <td align="center" valign="top">No (if you use the url parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">No (if you use the projectFile parameter).</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svlist url="https://localhost:6085" username="HPSV" password="secret" />
+</pre>
+Lists the deployed services on the server.
+
+<pre>
+    &lt;svlist username="HPSV" password="secret" projectFile="myProject.vproja" />
+</pre>
+Lists the deployed services from specified project file on the server. Note that the server management endpoint url is gathered from the project file.
+
+<pre>
+    &lt;svlist url="https://localhost:6085" username="HPSV" password="secret" projectFile="myProject.vproja" />
+</pre>
+Lists the deployed services from specified project file on the server. Note that the server management endpoint url is not used from project file because it is specified separately.
+
+</body>
+</html>

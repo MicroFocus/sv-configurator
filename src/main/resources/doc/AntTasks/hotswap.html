@@ -1,0 +1,73 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>SVhotswap Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Svunlock</a></h2>
+<h3>Description</h3>
+<p>The task is used to make a Performance Model Hot Swap.</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">The server's management endpoint (e.g. https://localhost:6085/management or http://localhost:6080/management)</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">username</td>
+    <td valign="top">Username for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Password for conencting to the server management endpoint.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">service</td>
+    <td valign="top">The name of the service (or its ID) where we want to change the performance model to.</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">pm</td>
+    <td valign="top">Performance model we want to change the service to. If it is not specified, Maximal Performance Model (also called None model) will be set.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  
+  <tr>
+    <td valign="top">force</td>
+    <td valign="top">Force mode means that if the service to be changed is locked by another user the task will automatically unlock it. 
+	If you don't use force mode and the service is locked, the hotswap won't be accomplished. Be careful with this option because you can rewrite another user's data if you explicitly unlock the service.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+
+</table>
+
+<h3>Examples</h3>
+<pre>
+    &lt;svhotswap url="https://localhost:6085" username="HPSV" password="secret" service="My Virtual Service" pm="Slow Model" />
+</pre>
+Swaps the performance model to "Slow Model".
+
+<pre>
+    &lt;svhotswap url="https://localhost:6085" username="HPSV" password="secret" service="My Virtual Service" />
+</pre>
+Swaps the performance model to "Maximal Performance"" model
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<analysisResult xmlns="http://hp.com/SOAQ/ServiceVirtualization/2010/">
+    <vs:virtualService ref="18d93068-cdcb-424f-9eb0-62d359a22a69"
+                       xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/"/>
+    <vs:aggregateModifications
+            ref="2ac7daca-7e39-4aa3-92e0-f541dcce36b4" xmlns:vs="http://hp.com/SOAQ/ServiceVirtualization/2010/"/>
+    <httpAuthentication>None</httpAuthentication>
+    <recordedMessages>0</recordedMessages>
+    <analyzedMessages>0</analyzedMessages>
+    <estimatedTimeLeft>0</estimatedTimeLeft>
+    <state>Cancelled</state>
+</analysisResult>

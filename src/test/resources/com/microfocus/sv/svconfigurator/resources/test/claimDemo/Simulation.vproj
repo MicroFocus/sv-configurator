@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{9B3A0C94-3965-4342-90F4-995D626F5A39}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ServerIdentifier>urn:Embedded Server</ServerIdentifier>
+    <ServerUrl>http://localhost:7280/management</ServerUrl>
+    <ProductVersion>3.0</ProductVersion>
+    <ProductEdition>Premium</ProductEdition>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="ClaimProcessing.vsdsc" />
+    <None Include="Member Accounts.vs" />
+    <None Include="Member Accounts.vsmf" />
+    <None Include="Member Accounts_Data Model.vsmodel" />
+    <None Include="Member Accounts_Data Model_Dataset.vsdataset" />
+    <None Include="Member Accounts_Data Model_Dataset_000.vsdataset" />
+    <None Include="Member Accounts_Data Model_Dataset_001.vsdataset" />
+    <None Include="Member Accounts_Data Model_Dataset_002.vsdataset" />
+    <None Include="Member Accounts_Data Model_Dataset_003.vsdataset" />
+    <None Include="Member Accounts_Data Model_Dataset_004.vsdataset" />
+    <None Include="Member Accounts_Default_Performance.vspfmodel" />
+    <None Include="Member Accounts_Offline_Performance.vspfmodel" />
+    <None Include="MemberAccounts.vsdsc" />
+    <None Include="Topology1.vsdt" />
+  </ItemGroup>
+</Project>
