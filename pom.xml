@@ -5,7 +5,7 @@
 
     <groupId>com.microfocus.sv</groupId>
     <artifactId>SVConfigurator</artifactId>
-    <version>5.00</version>
+    <version>5.0</version>
 
     <name>SV Configurator</name>
     <url>https://github.com/MicroFocus/sv-configurator</url>
