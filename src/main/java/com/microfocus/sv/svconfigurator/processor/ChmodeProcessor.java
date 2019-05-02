@@ -67,6 +67,10 @@ public class ChmodeProcessor implements IChmodeProcessor {
         String dataModel = input.getDataModel();
         String perfModel = input.getPerfModel();
 
+        if(svc.NonExistentRealService() && (input.getServiceMode() == RuntimeMode.STAND_BY || input.getServiceMode() == RuntimeMode.LEARNING)) {
+            throw new CommandExecutorException("Virtual service without real service configuration cannot be switchted to " + input.getServiceMode().toString() + " mode.");
+        }
+
         if (dataModel != null) {
             String dataModelId = ProjectUtils.findProjElem(svc.getDataModels(), dataModel, ProjectUtils.ENTITY_DATA_MODEL).getId();
             conf.setDataModelId(dataModelId);

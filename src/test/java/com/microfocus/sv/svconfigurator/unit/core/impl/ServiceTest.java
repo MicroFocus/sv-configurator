@@ -61,7 +61,7 @@ public class ServiceTest extends AbstractCoreTest {
     public void setUp() throws Exception {
         this.ze = this.zf.getFileHeader(AbstractCoreTest.SERVICE_ENTRY);
         this.ds = new ArchiveProjectElementDataSource(zf, ze);
-        this.service = new Service(ID, NAME, ds, null, null, null);
+        this.service = new Service(ID, NAME, ds, null, null, null, false);
     }
 
     @Test

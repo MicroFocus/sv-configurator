@@ -80,6 +80,7 @@ public class ServiceListAtom extends AbstractFeed<ServiceListAtom.ServiceEntry> 
         private String projectId;
         private String runtimeIssues;
         private String runtimeIssuesParsed;
+        private String nonExistentRealService;
 
         @XmlElement(name = "ServiceMode")
         public String getServiceMode() {
@@ -188,6 +189,15 @@ public class ServiceListAtom extends AbstractFeed<ServiceListAtom.ServiceEntry> 
 
         public String getRuntimeIssuesParsed() {
             return runtimeIssuesParsed;
+        }
+
+        @XmlElement(name = "NonExistentRealService")
+        public String getNonExistentRealService() {
+            return nonExistentRealService;
+        }
+
+        public void setNonExistentRealService(String nonExistentRealService) {
+            this.nonExistentRealService = nonExistentRealService;
         }
 
         public static class HashCodeObj {
