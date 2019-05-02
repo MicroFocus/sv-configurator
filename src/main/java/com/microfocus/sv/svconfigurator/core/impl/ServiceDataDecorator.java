@@ -129,4 +129,9 @@ public class ServiceDataDecorator implements IService {
         return this.service.getRuntimeIssues();
     }
 
+    @Override
+    public boolean NonExistentRealService() {
+        return this.service.NonExistentRealService();
+    }
+
 }

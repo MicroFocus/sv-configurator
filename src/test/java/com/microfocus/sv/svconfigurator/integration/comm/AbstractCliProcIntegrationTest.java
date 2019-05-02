@@ -65,7 +65,7 @@ public class AbstractCliProcIntegrationTest {
     }
 
     private IService createDummyService(String id, String name) {
-        return new Service(id, name, new InexistingProjectElementDataSource(), null, null, null);
+        return new Service(id, name, new InexistingProjectElementDataSource(), null, null, null, false);
     }
 
     protected void waitForNotPresent(IService svc) throws Exception {

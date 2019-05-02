@@ -35,8 +35,9 @@ public class Service extends AbstractProjectElement implements IService {
     private Set<IContentFile> contentFiles;
     private IProject baseProject;
     private String runtimeIssues;
+    private boolean nonExistentRealService;
 
-    public Service(String id, String name, IProjectElementDataSource ds, EncryptionMetadata encryptionMetadata, String projectPassword, String runtimeIssues) {
+    public Service(String id, String name, IProjectElementDataSource ds, EncryptionMetadata encryptionMetadata, String projectPassword, String runtimeIssues, boolean nonExistentRealService) {
         super(id, name, ds, encryptionMetadata, projectPassword);
         this.runtimeIssues = runtimeIssues;
 
@@ -45,10 +46,11 @@ public class Service extends AbstractProjectElement implements IService {
         this.svcDescs = new HashSet<IServiceDescription>();
         this.contentFiles = new HashSet<IContentFile>();
         this.baseProject = null;
+        this.nonExistentRealService = nonExistentRealService;
     }
 
     public Service(String id, String name){
-        this(id, name, null, null, null, null);
+        this(id, name, null, null, null, null, false);
     }
 
     @Override
@@ -94,6 +96,11 @@ public class Service extends AbstractProjectElement implements IService {
     @Override
     public String getRuntimeIssues() {
         return runtimeIssues;
+    }
+
+    @Override
+    public boolean NonExistentRealService() {
+        return nonExistentRealService;
     }
 
     @Override

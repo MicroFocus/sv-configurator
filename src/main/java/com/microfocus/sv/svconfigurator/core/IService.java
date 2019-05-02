@@ -46,4 +46,5 @@ public interface IService extends IProjectElement {
 
     public String getRuntimeIssues();
 
+    public boolean NonExistentRealService();
 }

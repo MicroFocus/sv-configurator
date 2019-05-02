@@ -37,6 +37,7 @@ public class ServiceElementParser extends AbstractXMLElementParser {
     private static final String ROOT_ELEMENT = "virtualService";
     private static final String ATTR_ID = "id";
     private static final String ATTRIBUTE_NAME = "name";
+    private static final String ATTRIBUTE_NON_EXISTENT_REAL_SERVICE = "nonExistentRealService";
 
     //============================== INSTANCE ATTRIBUTES ======================================
 
@@ -51,8 +52,9 @@ public class ServiceElementParser extends AbstractXMLElementParser {
         StartElement el = AbstractXMLElementParser.skipToElement(reader, ROOT_ELEMENT);
         String id = AbstractXMLElementParser.getAttributeValue(el, ATTR_ID, false);
         String name = AbstractXMLElementParser.getAttributeValue(el, ATTRIBUTE_NAME, true);
+        boolean nonExistentRealService = "true".equalsIgnoreCase(AbstractXMLElementParser.getAttributeValue(el, ATTRIBUTE_NON_EXISTENT_REAL_SERVICE, true));
 
-        return new Service(id, name, ds, readEncryptionMetadata(reader), projectPassword, "");
+        return new Service(id, name, ds, readEncryptionMetadata(reader), projectPassword, "", nonExistentRealService);
     }
 
     @Override

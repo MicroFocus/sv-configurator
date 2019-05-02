@@ -241,7 +241,7 @@ public class CommandExecutor implements ICommandExecutor {
         Collection<IService> svcs = new ArrayList<IService>(atom.getEntries().size());
         for (ServiceListAtom.ServiceEntry se : atom.getEntries()) {
             if (svcIdent.equals(se.getTitle()) || svcIdent.equals(se.getId())) {
-                svcs.add(new Service(se.getId(), se.getTitle(), new InexistingProjectElementDataSource(), null, null, se.getRuntimeIssuesParsed()));
+                svcs.add(new Service(se.getId(), se.getTitle(), new InexistingProjectElementDataSource(), null, null, se.getRuntimeIssuesParsed(), "true".equalsIgnoreCase(se.getNonExistentRealService())));
             }
         }
         return svcs;
