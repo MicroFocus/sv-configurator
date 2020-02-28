@@ -82,7 +82,7 @@ public class DeployProcessor implements IDeployProcessor {
         List<IService> updatedServices = updateAndValidateServiceAgents(exec, input, services);
 
         for (IService svc : updatedServices) {
-            exec.deployService(svc, proj.getProjectPassword());
+            exec.deployService(svc, proj.getProjectPassword(), input.isImportLoggedMessages());
         }
         if (service == null) {
             LOG.info(proj + " successfully deployed.");

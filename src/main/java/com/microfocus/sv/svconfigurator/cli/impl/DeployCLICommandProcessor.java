@@ -105,7 +105,9 @@ public class DeployCLICommandProcessor extends AbstractProjectCommandProcessor i
 
             Map<String,String> agentRemapping = getAgentRemapping(line);
 
-            final DeployProcessorInput input = new DeployProcessorInput(force, undeploy, proj, svc, agentRemapping);
+            boolean importLoggedMessages = line.hasOption(CommandLineOptions.LONG_PARAM_WITH_LOGGED_MESSAGES);
+
+            final DeployProcessorInput input = new DeployProcessorInput(force, undeploy, proj, svc, agentRemapping, importLoggedMessages);
             input.setFirstAgentFailover(line.hasOption(LONG_PARAM_FIRST_AGENT_FALLBACK));
             
             ServersCommandExecutor executor = new ServersCommandExecutor(servers, deployProcessor.getCommandExecutorFactory());
@@ -163,6 +165,8 @@ public class DeployCLICommandProcessor extends AbstractProjectCommandProcessor i
                 .create(LONG_PARAM_AGENT_REMAPPING);
 
         opts.addOption(agentRemappingProperty);
+
+        opts.addOption(null, CommandLineOptions.LONG_PARAM_WITH_LOGGED_MESSAGES, false, "Import logged messages");
 
         return opts;
     }

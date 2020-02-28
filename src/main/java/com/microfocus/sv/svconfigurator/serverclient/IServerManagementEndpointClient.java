@@ -20,9 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.serverclient;
 
-import java.net.URL;
-import java.util.Collection;
-
 import com.microfocus.sv.svconfigurator.core.*;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
@@ -30,6 +27,9 @@ import com.microfocus.sv.svconfigurator.core.impl.jaxb.*;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ElemModelListAtom;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
 import com.microfocus.sv.svconfigurator.core.impl.processor.ElementStatus;
+
+import java.net.URL;
+import java.util.Collection;
 
 public interface IServerManagementEndpointClient {
     
@@ -105,7 +105,11 @@ public interface IServerManagementEndpointClient {
     byte[] fetchDataModel(String vsId, String dmId) throws CommunicatorException;
     byte[] fetchDataSet(String vsId, String dmId, String dsId) throws CommunicatorException;
     byte[] fetchPerformanceModel(String vsId, String pmId) throws CommunicatorException;
-    
+    FileInfo fetchLoggedMessages(String vsId, long from, int limit) throws CommunicatorException;
+
+    void resetLoggedMessagesForService(String vsId) throws CommunicatorException;
+    void importLoggedMessages(ILoggedServiceCallList loggedServiceCallList) throws CommunicatorException;
+
     Collection<String> getServiceDescriptionIds(String vsId) throws CommunicatorException;
     Collection<String> getDataModelIds(String vsId) throws CommunicatorException;
     Collection<String> getDataSetIds(String vsId, String dmId) throws CommunicatorException;

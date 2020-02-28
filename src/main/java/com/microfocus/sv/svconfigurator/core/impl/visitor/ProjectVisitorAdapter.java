@@ -78,6 +78,11 @@ public abstract class ProjectVisitorAdapter implements IProjectElementVisitor {
     public void visit(ITopology t) {
         //nothing
     }
+
+    @Override
+    public void visit(ILoggedServiceCallList loggedServiceCallList) {
+        //nothing
+    }
     //============================== INSTANCE METHODS =========================================
 
     //============================== PRIVATE METHODS ==========================================

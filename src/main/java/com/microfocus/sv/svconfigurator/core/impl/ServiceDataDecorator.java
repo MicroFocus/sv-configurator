@@ -95,6 +95,11 @@ public class ServiceDataDecorator implements IService {
     }
 
     @Override
+    public Collection<ILoggedServiceCallList> getLoggedServiceCallLists() {
+        return this.service.getLoggedServiceCallLists();
+    }
+
+    @Override
     public IProject getBaseProject() {
         return this.service.getBaseProject();
     }
@@ -122,6 +127,11 @@ public class ServiceDataDecorator implements IService {
     @Override
     public void addContentFile(IContentFile cf) {
         this.service.addContentFile(cf);
+    }
+
+    @Override
+    public void addLoggedServiceCallList(ILoggedServiceCallList loggedServiceCallList) {
+        this.service.addLoggedServiceCallList(loggedServiceCallList);
     }
 
     @Override

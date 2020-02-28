@@ -31,15 +31,17 @@ public class DeployProcessorInput {
     private IProject project;
     private String service;
     private Map<String, String> agentRemapping;
+    private final boolean importLoggedMessages;
 
     private boolean firstAgentFailover;
 
-    public DeployProcessorInput(boolean force, boolean undeploy, IProject project, String service, Map<String, String> agentRemapping) {
+    public DeployProcessorInput(boolean force, boolean undeploy, IProject project, String service, Map<String, String> agentRemapping, boolean importLoggedMessages) {
         this.force = force;
         this.undeploy = undeploy;
         this.project = project;
         this.service = service;
         this.agentRemapping = agentRemapping;
+        this.importLoggedMessages = importLoggedMessages;
 
         this.firstAgentFailover = false;
     }
@@ -74,5 +76,9 @@ public class DeployProcessorInput {
 
     public final void setFirstAgentFailover(boolean firstAgentFailover) {
         this.firstAgentFailover = firstAgentFailover;
+    }
+
+    public boolean isImportLoggedMessages() {
+        return importLoggedMessages;
     }
 }

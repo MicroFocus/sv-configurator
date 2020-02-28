@@ -45,6 +45,7 @@ public abstract class AbstractProjectElementParser {
         parsers.add(new ServiceDescriptionElementParser());
         parsers.add(new TopologyElementParser());
         parsers.add(new ContentFileElementParser());
+        parsers.add(new LoggedServiceCallListParser());
     }
 
     public static AbstractProjectElementParser getParserForDataSource(IProjectElementDataSource ds) throws SVCParseException {

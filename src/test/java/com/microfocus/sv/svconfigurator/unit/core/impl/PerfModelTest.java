@@ -157,6 +157,11 @@ public class PerfModelTest extends AbstractCoreTest {
         public void visit(IContentFile t) {
             fail("Should not be called.");
         }
+
+        @Override
+        public void visit(ILoggedServiceCallList loggedServiceCallList) {
+            fail("Should not be called.");
+        }
     }
 
 }

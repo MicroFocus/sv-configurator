@@ -52,5 +52,8 @@ public interface IRestClient {
 
     byte[] getPayload(URI uri, ContentType accept) throws CommunicatorException;
 
+    FileInfo getFileInfo(URI uri, ContentType accept) throws CommunicatorException;
+
     String getUsername();
 }
+

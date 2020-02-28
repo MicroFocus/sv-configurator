@@ -25,4 +25,5 @@ public class CommandLineOptions {
     public static final String LONG_PROP_PROJ = "project";
     public static final String PROPERTY_PROJ_PASSWORD = "w";
     public static final String LONG_PROPERTY_PROJ_PASSWORD = "project-password";
+    public static final String LONG_PARAM_WITH_LOGGED_MESSAGES = "with-logged-messages";
 }

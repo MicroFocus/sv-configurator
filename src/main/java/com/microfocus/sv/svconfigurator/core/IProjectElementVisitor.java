@@ -20,6 +20,8 @@
  */
 package com.microfocus.sv.svconfigurator.core;
 
+import com.microfocus.sv.svconfigurator.core.impl.LoggedServiceCallList;
+
 public interface IProjectElementVisitor {
 
     public void visit(IProject p);
@@ -40,4 +42,5 @@ public interface IProjectElementVisitor {
 
     public void visit(ITopology t);
 
+    public void visit(ILoggedServiceCallList loggedServiceCallList);
 }

@@ -32,6 +32,8 @@ public interface IService extends IProjectElement {
 
     public Collection<IContentFile> getContentFiles();
 
+    public Collection<ILoggedServiceCallList> getLoggedServiceCallLists();
+
     public IProject getBaseProject();
 
     public void addDataModel(IDataModel dm);
@@ -43,6 +45,8 @@ public interface IService extends IProjectElement {
     public void addDescription(IServiceDescription sd);
 
     public void addContentFile(IContentFile cf);
+
+    public void addLoggedServiceCallList(ILoggedServiceCallList loggedServiceCallList);
 
     public String getRuntimeIssues();
 

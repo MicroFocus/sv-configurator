@@ -26,6 +26,7 @@ import java.util.Set;
 import com.microfocus.sv.svconfigurator.core.IContentFile;
 import com.microfocus.sv.svconfigurator.core.IDataModel;
 import com.microfocus.sv.svconfigurator.core.IPerfModel;
+import com.microfocus.sv.svconfigurator.core.ILoggedServiceCallList;
 import com.microfocus.sv.svconfigurator.core.IServiceDescription;
 
 public class ServiceChildElementFilter extends ProjectVisitorAdapter {
@@ -38,6 +39,7 @@ public class ServiceChildElementFilter extends ProjectVisitorAdapter {
     private Set<IPerfModel> perfModels = new HashSet<IPerfModel>();
     private Set<IServiceDescription> svcDescriptions = new HashSet<IServiceDescription>();
     private Set<IContentFile> svcContentFiles = new HashSet<IContentFile>();
+    private Set<ILoggedServiceCallList> loggedServiceCallLists = new HashSet<ILoggedServiceCallList>();
 
     //============================== CONSTRUCTORS =============================================
 
@@ -65,6 +67,11 @@ public class ServiceChildElementFilter extends ProjectVisitorAdapter {
         this.svcContentFiles.add(cf);
     }
 
+    @Override
+    public void visit(ILoggedServiceCallList loggedServiceCallList) {
+        this.loggedServiceCallLists.add(loggedServiceCallList);
+    }
+
     //============================== INSTANCE METHODS =========================================
 
     //============================== PRIVATE METHODS ==========================================
@@ -85,6 +92,10 @@ public class ServiceChildElementFilter extends ProjectVisitorAdapter {
 
     public Set<IContentFile> getSvcContentFiles() {
         return svcContentFiles;
+    }
+
+    public Set<ILoggedServiceCallList> getLoggedServiceCallLists() {
+        return this.loggedServiceCallLists;
     }
 
     //============================== INNER CLASSES ============================================
