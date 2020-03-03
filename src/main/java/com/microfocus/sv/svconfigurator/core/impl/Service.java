@@ -36,6 +36,7 @@ public class Service extends AbstractProjectElement implements IService {
     private IProject baseProject;
     private String runtimeIssues;
     private boolean nonExistentRealService;
+    private Set<ILoggedServiceCallList> loggedServiceCallLists;
 
     public Service(String id, String name, IProjectElementDataSource ds, EncryptionMetadata encryptionMetadata, String projectPassword, String runtimeIssues, boolean nonExistentRealService) {
         super(id, name, ds, encryptionMetadata, projectPassword);
@@ -45,6 +46,7 @@ public class Service extends AbstractProjectElement implements IService {
         this.perfModels = new HashSet<IPerfModel>();
         this.svcDescs = new HashSet<IServiceDescription>();
         this.contentFiles = new HashSet<IContentFile>();
+        this.loggedServiceCallLists = new HashSet<ILoggedServiceCallList>();
         this.baseProject = null;
         this.nonExistentRealService = nonExistentRealService;
     }
@@ -84,6 +86,11 @@ public class Service extends AbstractProjectElement implements IService {
     }
 
     @Override
+    public Collection<ILoggedServiceCallList> getLoggedServiceCallLists() {
+        return this.loggedServiceCallLists;
+    }
+
+    @Override
     public void addDescription(IServiceDescription sd) {
         this.svcDescs.add(sd);
     }
@@ -91,6 +98,11 @@ public class Service extends AbstractProjectElement implements IService {
     @Override
     public void addContentFile(IContentFile cf) {
         this.contentFiles.add(cf);
+    }
+
+    @Override
+    public void addLoggedServiceCallList(ILoggedServiceCallList loggedServiceCallList) {
+        this.loggedServiceCallLists.add(loggedServiceCallList);
     }
 
     @Override

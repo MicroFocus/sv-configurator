@@ -31,6 +31,7 @@ import java.util.Set;
 
 import com.microfocus.sv.svconfigurator.build.parser.DataModelElementParser;
 import com.microfocus.sv.svconfigurator.build.parser.DataSetElementParser;
+import com.microfocus.sv.svconfigurator.build.parser.LoggedServiceCallListParser;
 import com.microfocus.sv.svconfigurator.build.parser.ManifestElementParser;
 import com.microfocus.sv.svconfigurator.build.parser.PerfModelElementParser;
 import com.microfocus.sv.svconfigurator.build.parser.ServiceDescriptionElementParser;
@@ -43,6 +44,7 @@ import com.microfocus.sv.svconfigurator.processor.export.AbstractWriter;
 import com.microfocus.sv.svconfigurator.processor.export.FolderWriter;
 import com.microfocus.sv.svconfigurator.processor.export.ZipWriter;
 import com.microfocus.sv.svconfigurator.processor.utils.DataModelContentFilesExtractor;
+import com.microfocus.sv.svconfigurator.serverclient.FileInfo;
 import com.microfocus.sv.svconfigurator.serverclient.IServerManagementEndpointClient;
 import com.microfocus.sv.svconfigurator.util.XmlUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -63,6 +65,7 @@ public class ExportProcessor {
 
     public static final String SERVER_TYPE_EMBEDDED = "Embedded";
     public static final String EMBEDDED_SERVER_URN = "urn:Embedded Server";
+    private static final int FETCH_COUNT_LIMIT = 1000;
     private ICommandExecutorFactory commandExecutorFactory;
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportProcessor.class);
@@ -75,7 +78,7 @@ public class ExportProcessor {
         return commandExecutorFactory;
     }
 
-    public void process(ICommandExecutor exec, String directory, String svc, IProject project, boolean ignoreErrors, boolean exportAsArchive)
+    public void process(ICommandExecutor exec, String directory, String svc, IProject project, boolean ignoreErrors, boolean exportAsArchive, boolean includeLoggedMessages)
             throws Exception {
         File root = new File(directory);
         if (!root.exists()) {
@@ -108,7 +111,7 @@ public class ExportProcessor {
 
         // we have project -> services mapping now
         for (Map.Entry<String, List<ServiceEntry>> entry : projects.entrySet()) {
-            saveProject(entry.getValue(), root, exec, ignoreErrors, exportAsArchive);
+            saveProject(entry.getValue(), root, exec, ignoreErrors, exportAsArchive, includeLoggedMessages);
         }
 
         if (projects.isEmpty()) {
@@ -128,7 +131,7 @@ public class ExportProcessor {
     }
 
     private void saveProject(List<ServiceEntry> serviceEntries, File root, ICommandExecutor exec, boolean ignoreErrors,
-                             boolean exportAsArchive) throws Exception {
+                             boolean exportAsArchive, boolean includeLoggedMessages) throws Exception {
         ServiceEntry firstService = serviceEntries.get(0);
         String projectName = firstService.getProjectName();
         if (projectName == null) {
@@ -149,7 +152,7 @@ public class ExportProcessor {
             HashSet<String> contentFileIds = new HashSet<String>();
 
             try {
-                saveService(serviceFiles, writer, entry, exec, vsIndex++, serviceScaIds, contentFileIds);
+                saveService(serviceFiles, writer, entry, exec, vsIndex++, serviceScaIds, contentFileIds, includeLoggedMessages);
                 service2ContentFileIds.put(entry.getId(), contentFileIds);
                 // add content to project maps if saveService passed
                 projectEntries.addAll(serviceFiles);
@@ -265,7 +268,7 @@ public class ExportProcessor {
     }
 
     private void saveService(List<String> files, AbstractWriter writer, ServiceEntry entry, ICommandExecutor exec,
-                             int vsIndex, HashMap<String, String> scaSdIds2ServiceIds, Set<String> projectContentFileIds) throws Exception {
+                             int vsIndex, HashMap<String, String> scaSdIds2ServiceIds, Set<String> projectContentFileIds, boolean includeLoggedMessages) throws Exception {
 
         String serviceName = entry.getTitle() + " " + vsIndex;
         serviceName = AbstractWriter.entityNameToFileName(serviceName);
@@ -348,7 +351,37 @@ public class ExportProcessor {
         String vsmf = createMetafile(vsId, vsSdIds, scaSdIds, pmIds, dmIds, dm2refIds, datasets, contentFileIds);
         writeServiceDataToFile(vsmf.getBytes("UTF-8"), writer, serviceName, ManifestElementParser.FILE_SUFFIX, files);
         projectContentFileIds.addAll(contentFileIds);
+
+        if(includeLoggedMessages) {
+            saveLoggedMessages(serviceName, vsId, client, writer);
+        }
     }
+
+    private void saveLoggedMessages(String serviceName, String vsId, IServerManagementEndpointClient client, AbstractWriter writer) throws Exception {
+        long from = 0;
+        int counter = 1;
+        while (true) {
+            FileInfo fileInfo = client.fetchLoggedMessages(vsId, from, FETCH_COUNT_LIMIT);
+            if (fileInfo == null) {
+                break;
+            }
+            from = getLastId(fileInfo.getFileName()) + 1;
+            String filePath = serviceName + " " + String.format("%03d", counter) + LoggedServiceCallListParser.FILE_EXTENSION;
+            writer.addData(filePath, fileInfo.getContent());
+            counter++;
+        }
+    }
+
+    private int getLastId(String fileName) throws SVCParseException {
+        try {
+            int fromIndex = fileName.lastIndexOf("_") + 1;
+            int toIndex = fileName.indexOf(".");
+            return Integer.parseInt(fileName.substring(fromIndex, toIndex));
+        } catch(Exception e){
+            throw new SVCParseException("Received fileName [" + fileName + "] with unrecognized format, expected [calls_<from>_<to>.xml]");
+        }
+    }
+
 
     private Dataset parseDataset(byte[] dataSet, String dsId) throws UnsupportedEncodingException {
         String x = new String(dataSet, "ASCII");

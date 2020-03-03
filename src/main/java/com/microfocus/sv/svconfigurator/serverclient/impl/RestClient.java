@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 
+import com.microfocus.sv.svconfigurator.serverclient.FileInfo;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -51,6 +53,8 @@ import com.microfocus.sv.svconfigurator.serverclient.IRestClient;
 import com.microfocus.sv.svconfigurator.util.HttpMessageUtil;
 
 public class RestClient implements IRestClient {
+    private static final String CONTENT_DISPOSITION = "Content-Disposition";
+    private static final String FILENAME_PREFIX = "filename=";
     // ============================== STATIC ATTRIBUTES ========================================
 
     private static Logger LOG = LoggerFactory.getLogger(RestClient.class);
@@ -313,6 +317,45 @@ public class RestClient implements IRestClient {
         } catch (IOException e) {
             throw new CommunicatorException("Network error: " + e.getLocalizedMessage(), e);
         }
+    }
+
+    @Override
+    public FileInfo getFileInfo(URI uri, ContentType accept) throws CommunicatorException {
+        LOG.debug("GET " + uri);
+        HttpGet httpget = new HttpGet(uri);
+        if (accept != null) {
+            HttpMessageUtil.accept(httpget, ContentType.APPLICATION_XML);
+        }
+        HttpResponse response;
+        try {
+            response = this.exec(httpget);
+            if (response.getStatusLine().getStatusCode() != 200) {
+                // close response properly
+                EntityUtils.consumeQuietly(response.getEntity());
+                throw new CommunicatorException(String.format("GET of %s failed: %s", uri, response.getStatusLine()));
+            }
+            byte[] content = EntityUtils.toByteArray(response.getEntity());
+
+            Header[] contentDispositionHeaders = response.getHeaders(CONTENT_DISPOSITION);
+            if (contentDispositionHeaders == null || contentDispositionHeaders.length == 0) {
+                return null;
+            }
+            String contentDisposition = contentDispositionHeaders[0].getValue();
+            return new FileInfo(parseFileName(contentDisposition), content);
+        } catch (IOException e) {
+            throw new CommunicatorException("Network error: " + e.getLocalizedMessage(), e);
+        }
+    }
+
+    private String parseFileName(String contentDisposition) throws CommunicatorException {
+        String[] values = contentDisposition.split(";");
+        for (String item : values) {
+            String trimmed = item.trim();
+            if (trimmed.startsWith(FILENAME_PREFIX)) {
+                return trimmed.substring(FILENAME_PREFIX.length());
+            }
+        }
+        throw new CommunicatorException("Network error: invalid " + CONTENT_DISPOSITION + " header: " + contentDisposition);
     }
 
     // ============================== GETTERS / SETTERS ========================================

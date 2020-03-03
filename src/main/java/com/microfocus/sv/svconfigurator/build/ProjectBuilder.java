@@ -26,6 +26,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.microfocus.sv.svconfigurator.build.parser.AbstractProjectElementParser;
+import com.microfocus.sv.svconfigurator.build.parser.LoggedServiceCallListParser;
 import com.microfocus.sv.svconfigurator.core.*;
 import com.microfocus.sv.svconfigurator.core.impl.datasource.ArchiveProjectElementDataSource;
 import com.microfocus.sv.svconfigurator.core.impl.datasource.ContentFileElementDataSource;
@@ -87,7 +89,7 @@ public class ProjectBuilder implements IProjectBuilder {
         //Iterate through all the manifests and build Project tree structure (join objects together)
         IProject p = grabber.getProject();
         for (IManifest m : grabber.getManifests()) {
-            IService svc = processManifest(m, entityMap, projectPassword);
+            IService svc = processManifest(m, entityMap);
             p.addService(svc);
         }
 
@@ -141,6 +143,16 @@ public class ProjectBuilder implements IProjectBuilder {
                 if (projectFileNode.getLocalName() == "Content") {
                     res.add(new ContentFileElementDataSource(new FileProjectElementDataSource(f), XmlUtils.getNodeAsKeyValueMap(childNodes.item(i), Document.ELEMENT_NODE)));
                 }
+            }
+
+            File[] msgLogs = proj.getParentFile().listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(LoggedServiceCallListParser.FILE_EXTENSION);
+                }
+            });
+            for(File msgLogFile: msgLogs){
+                res.add(new FileProjectElementDataSource(msgLogFile));
             }
 
             return res;
@@ -207,6 +219,13 @@ public class ProjectBuilder implements IProjectBuilder {
                 }
             }
 
+            for (Object o : zipFile.getFileHeaders()) {
+                FileHeader fileHeader = (FileHeader) o;
+                if (fileHeader.getFileName().endsWith(LoggedServiceCallListParser.FILE_EXTENSION)) {
+                    res.add(new ArchiveProjectElementDataSource(zipFile, fileHeader));
+                }
+            }
+
             return res;
         } catch (ZipException e) {
             throw new ProjectBuilderException("Project Archive File processing exception.", e);
@@ -238,8 +257,8 @@ public class ProjectBuilder implements IProjectBuilder {
         }
     }
 
-    private IService processManifest(IManifest m, Map<String, IProjectElement> entities, String projectPassword) throws ProjectBuilderException {
-        ManifestProcessor mp = new ManifestProcessor(entities, m, projectPassword);
+    private IService processManifest(IManifest m, Map<String, IProjectElement> entities) throws ProjectBuilderException {
+        ManifestProcessor mp = new ManifestProcessor(entities, m);
 
         IService svc = mp.getRoot();
 
@@ -277,6 +296,10 @@ public class ProjectBuilder implements IProjectBuilder {
         //process content file
         for (IContentFile cf : svcChildFilter.getSvcContentFiles()) {
             svc.addContentFile(cf);
+        }
+
+        for (ILoggedServiceCallList lscl : svcChildFilter.getLoggedServiceCallLists()) {
+            svc.addLoggedServiceCallList(lscl);
         }
 
         return svc;

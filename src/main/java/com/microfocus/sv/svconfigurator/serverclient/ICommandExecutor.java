@@ -20,6 +20,7 @@
  */
 package com.microfocus.sv.svconfigurator.serverclient;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import com.microfocus.sv.svconfigurator.core.IDataModel;
@@ -38,6 +39,8 @@ public interface ICommandExecutor {
     void deployProject(IProject project) throws CommunicatorException, CommandExecutorException;
 
     void deployService(IService svc, String projectPassword) throws CommunicatorException, CommandExecutorException;
+
+    void deployService(IService svc, String projectPassword, boolean importLoggedMessages) throws CommunicatorException, CommandExecutorException;
 
     void undeploy(IProject project) throws CommunicatorException, CommandExecutorException;
 

@@ -34,6 +34,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import com.microfocus.sv.svconfigurator.core.ILoggedServiceCallList;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -58,7 +59,7 @@ public class ManifestProcessor {
 
     //============================== CONSTRUCTORS =============================================
 
-    public ManifestProcessor(Map<String, IProjectElement> elementMap, IManifest manifest, String prjoectPassword) throws ProjectBuilderException {
+    public ManifestProcessor(Map<String, IProjectElement> elementMap, IManifest manifest) throws ProjectBuilderException {
         this.elementMap = elementMap;
         this.manifest = manifest;
 
@@ -118,6 +119,17 @@ public class ManifestProcessor {
                     throw new ProjectBuilderException("Element (specified in the manifest '" + this.manifest.getId() + "') with ID '" + nodeId + "' was not found in the project archive.");
                 }
                 res.add(child);
+            }
+            if(el instanceof IService) {
+                for (Map.Entry<String, IProjectElement> entry : elementMap.entrySet()) {
+                    IProjectElement value = entry.getValue();
+                    if (value instanceof ILoggedServiceCallList) {
+                        ILoggedServiceCallList loggedServiceCallList = (ILoggedServiceCallList) value;
+                        if (loggedServiceCallList.VsId().equals(el.getId())) {
+                            res.add(value);
+                        }
+                    }
+                }
             }
             return res;
         } catch (XPathExpressionException ex) {

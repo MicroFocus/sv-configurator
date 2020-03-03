@@ -39,6 +39,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import com.microfocus.sv.svconfigurator.core.*;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.*;
+import com.microfocus.sv.svconfigurator.serverclient.FileInfo;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
@@ -102,6 +103,8 @@ public class ServerManagementEndpointClient implements
     private static final String REL_URL_CONTENT_FILE = "services/%s/contentFiles";
     private static final String REL_URL_CONTENT_FILES = "services/%s/contentFiles/%s?alt=xml";
     private static final String REL_URL_CONTENT_FILES_INFO = "services/%s/contentFiles/%s";
+    private static final String REL_URL_LOGGED_MESSAGES = "messageLogger/%s/impexp";
+    private static final String REL_URL_LOGGED_MESSAGES_FROM_ID_LIMIT = REL_URL_LOGGED_MESSAGES + "?from_id=%s&limit=%s";
 
     private static final Logger LOG = LoggerFactory
             .getLogger(ServerManagementEndpointClient.class);
@@ -683,6 +686,32 @@ public class ServerManagementEndpointClient implements
         URI svcUri = this.resolveRelativeUri(String.format(REL_URL_PERF_MODEL,
                 vsId, pmId));
         return this.client.getPayload(svcUri, ContentType.APPLICATION_XML);
+    }
+
+    @Override
+    public FileInfo fetchLoggedMessages(String vsId, long from, int limit) throws CommunicatorException {
+        URI uri = this.resolveRelativeUri(String.format(REL_URL_LOGGED_MESSAGES_FROM_ID_LIMIT, vsId, from, limit));
+        return this.client.getFileInfo(uri, ContentType.APPLICATION_XML);
+    }
+
+    @Override
+    public void resetLoggedMessagesForService(String vsId) throws CommunicatorException {
+        URI uri = this.resolveRelativeUri(String.format(REL_URL_LOGGED_MESSAGES, vsId));
+        this.client.delete(uri);
+    }
+
+    @Override
+    public void importLoggedMessages(ILoggedServiceCallList loggedServiceCallList) throws CommunicatorException {
+        URI uri = this.resolveRelativeUri(String.format(REL_URL_LOGGED_MESSAGES, loggedServiceCallList.VsId()));
+        try {
+            this.client.post(uri, loggedServiceCallList.getData(), loggedServiceCallList.getDataLength(), ContentType.APPLICATION_XML);
+        } catch (IOException e) {
+            throw new CommunicatorException(loggedServiceCallList + " data retrieve error: "
+                    + e.getLocalizedMessage(), e);
+        } catch (SVCParseException e) {
+            throw new CommunicatorException(loggedServiceCallList + " data retrieve error: "
+                    + e.getLocalizedMessage(), e);
+        }
     }
 
     private Collection<String> fetchItems(URI uri) throws CommunicatorException {

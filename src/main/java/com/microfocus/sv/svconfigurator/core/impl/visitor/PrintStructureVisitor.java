@@ -109,6 +109,11 @@ public class PrintStructureVisitor implements IProjectElementVisitor {
     public void visit(ITopology t) {
         //do nothing
     }
+
+    @Override
+    public void visit(ILoggedServiceCallList loggedServiceCallList) {
+        //do nothing
+    }
     //============================== INSTANCE METHODS =========================================
 
     //============================== PRIVATE METHODS ==========================================

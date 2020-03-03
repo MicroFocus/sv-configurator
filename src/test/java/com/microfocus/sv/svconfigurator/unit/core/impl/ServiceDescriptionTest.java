@@ -23,6 +23,7 @@ package com.microfocus.sv.svconfigurator.unit.core.impl;
 import com.microfocus.sv.svconfigurator.core.IContentFile;
 import com.microfocus.sv.svconfigurator.core.IDataModel;
 import com.microfocus.sv.svconfigurator.core.IDataSet;
+import com.microfocus.sv.svconfigurator.core.ILoggedServiceCallList;
 import com.microfocus.sv.svconfigurator.core.IManifest;
 import com.microfocus.sv.svconfigurator.core.IPerfModel;
 import com.microfocus.sv.svconfigurator.core.IProject;
@@ -150,6 +151,11 @@ public class ServiceDescriptionTest extends AbstractCoreTest {
 
         @Override
         public void visit(IContentFile t) {
+            fail("Should not be called.");
+        }
+
+        @Override
+        public void visit(ILoggedServiceCallList loggedServiceCallList) {
             fail("Should not be called.");
         }
     }

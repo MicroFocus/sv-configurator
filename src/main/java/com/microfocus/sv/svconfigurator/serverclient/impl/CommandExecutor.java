@@ -20,8 +20,11 @@
  */
 package com.microfocus.sv.svconfigurator.serverclient.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.microfocus.sv.svconfigurator.Global;
 import com.microfocus.sv.svconfigurator.core.*;
@@ -32,6 +35,7 @@ import com.microfocus.sv.svconfigurator.core.impl.Service;
 import com.microfocus.sv.svconfigurator.core.impl.datasource.InexistingProjectElementDataSource;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
+import com.microfocus.sv.svconfigurator.core.impl.exception.SVCParseException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.AgentConfigurations;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceAnalysis;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
@@ -102,12 +106,18 @@ public class CommandExecutor implements ICommandExecutor {
     @Override
     public void deployProject(IProject project) throws CommunicatorException, CommandExecutorException {
         for (IService svc : project.getServices()) {
-            this.deployService(svc, project.getProjectPassword());
+            this.deployService(svc, project.getProjectPassword(), false);
         }
         LOG.info(project + " successfully deployed.");
     }
-    
+
+    @Override
     public void deployService(IService svc, String projectPassword) throws CommunicatorException, CommandExecutorException {
+        deployService(svc, projectPassword, false);
+    }
+
+    @Override
+    public void deployService(IService svc, String projectPassword, boolean importLoggedMessages) throws CommunicatorException, CommandExecutorException {
         ElementStatus svcStat = this.smeClient.getServiceStatus(svc);
         if (ElementStatus.NOT_PRESENT.equals(svcStat)) { // Deploy service
             this.smeClient.deployService(svc, projectPassword);
@@ -116,6 +126,20 @@ public class CommandExecutor implements ICommandExecutor {
             this.smeClient.updateService(svc, projectPassword);
         }
         this.smeClient.getServiceStatus(svc);
+
+        if(importLoggedMessages) {
+            this.smeClient.resetLoggedMessagesForService(svc.getId());
+            ArrayList<ILoggedServiceCallList> sorted = new ArrayList<ILoggedServiceCallList>(svc.getLoggedServiceCallLists());
+            Collections.sort(sorted, new Comparator<ILoggedServiceCallList>() {
+                @Override
+                public int compare(ILoggedServiceCallList l1, ILoggedServiceCallList l2) {
+                    return l1.getName().compareTo(l2.getName());
+                }
+            });
+            for (ILoggedServiceCallList serviceCallList : sorted) {
+                this.smeClient.importLoggedMessages(serviceCallList);
+            }
+        }
 
         for (IDataModel dm : svc.getDataModels()) {
             ElementStatus dmStat = this.smeClient.getDataModelStatus(dm);

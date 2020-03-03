@@ -84,6 +84,7 @@ public class ExportCommandProcessor extends AbstractProjectCommandProcessor impl
 
             final boolean ignoreErrors = line.hasOption(PARAM_CONTINUE_ON_ERROR);
             final boolean exportAsArchive = line.hasOption(PARAM_ARCHIVE);
+            final boolean includeLoggedMessages = line.hasOption(CommandLineOptions.LONG_PARAM_WITH_LOGGED_MESSAGES);
 
             final String svc = line.hasOption(PARAM_SERVICE) ? line.getOptionValue(PARAM_SERVICE) : null;
             final IProject project = getProject(line);
@@ -94,7 +95,7 @@ public class ExportCommandProcessor extends AbstractProjectCommandProcessor impl
                 @Override
                 public void runCommand(ICommandExecutor executor) throws AbstractSVCException {
                     try {
-                        exportProcessor.process(executor, directory, svc, project, ignoreErrors, exportAsArchive);
+                        exportProcessor.process(executor, directory, svc, project, ignoreErrors, exportAsArchive, includeLoggedMessages);
                     } catch (CommunicatorException e) {
                         throw e;
                     } catch (IOException e) {
@@ -130,6 +131,7 @@ public class ExportCommandProcessor extends AbstractProjectCommandProcessor impl
         opts.addOption(PARAM_DIR, LONG_PARAM_DIR, true, "Output directory.");
         opts.addOption(PARAM_CONTINUE_ON_ERROR, LONG_PARAM_CONTINUE_ON_ERROR, false, "Continue without error if export of any service failed.");
         opts.addOption(PARAM_ARCHIVE, LONG_PARAM_ARCHIVE, false, "Export as project archives (.vproja).");
+        opts.addOption(null, CommandLineOptions.LONG_PARAM_WITH_LOGGED_MESSAGES, false, "Include logged messages");
         opts.addOption(CommandLineOptions.PROP_PROJ, CommandLineOptions.LONG_PROP_PROJ, true, "Project file (.vproj or .vproja) to define set of services to be exported.");
         opts.addOption(CommandLineOptions.PROPERTY_PROJ_PASSWORD, CommandLineOptions.LONG_PROPERTY_PROJ_PASSWORD, true, "Project encryption password");
         return opts;
