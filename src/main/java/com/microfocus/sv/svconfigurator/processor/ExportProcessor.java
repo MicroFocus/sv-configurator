@@ -235,11 +235,11 @@ public class ExportProcessor {
     }
 
     private String getContentFilePath(Map<String,String> metadata) throws SVCParseException {
-        final String relativePathMetadataName = "relativePath";
-        if(metadata.containsKey(relativePathMetadataName)) {
-            return metadata.get(relativePathMetadataName);
+        final String pathMetadataName = "name";
+        if(metadata.containsKey(pathMetadataName)) {
+            return metadata.get(pathMetadataName);
         }
-        throw new SVCParseException("Content File doesn't contain relativePath attribute.");
+        throw new SVCParseException("Content File doesn't contain '" + pathMetadataName + "' attribute.");
     }
 
     private String createVproj(List<String> files, List<Map<String, String>> contentFilesMetadata, String projectId, String serverUrl, final String serverVersion, final String serverEdition, String serverIdentifier) throws SVCParseException {
