@@ -28,9 +28,10 @@ import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorExcep
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport;
+import com.microfocus.sv.svconfigurator.processor.printer.IPrinter;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
-import com.microfocus.sv.svconfigurator.util.OutputUtil;
 
 public class ViewProcessor implements IViewProcessor {
 
@@ -56,20 +57,13 @@ public class ViewProcessor implements IViewProcessor {
 
         IService svc = exec.findService(svcStr, input.getProject());
 
-        this.processInfo(exec, svc);
-
-        if (input.isDetail()) {
-            this.processReport(exec, svc);
-        }
+        this.processInfo(exec, svc, input.isDetail(), input.getOutputFormat());
     }
 
-    private void processInfo(ICommandExecutor exec, IService svc) throws CommunicatorException, CommandExecutorException {
+    private void processInfo(ICommandExecutor exec, IService svc, boolean showDetail, String outputFormat) throws CommunicatorException, CommandExecutorException {
+        IPrinter printer = PrinterFactory.create(outputFormat);
         ServiceRuntimeConfiguration conf = exec.getServiceRuntimeInfo(svc);
-        LOG.info(OutputUtil.createServiceInfoOutput(svc, conf));
-    }
-
-    private void processReport(ICommandExecutor exec, IService svc) throws CommunicatorException {
-        ServiceRuntimeReport rep = exec.getServiceRuntimeReport(svc);
-        LOG.info(OutputUtil.createServiceReportOutput(rep));
+        ServiceRuntimeReport report = (showDetail) ? exec.getServiceRuntimeReport(svc) : null;
+        LOG.info(printer.createServiceInfoOutput(svc, conf, report));
     }
 }

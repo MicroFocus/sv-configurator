@@ -26,7 +26,6 @@ import java.net.URL;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
@@ -44,10 +43,6 @@ import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 public class DeployTask extends Task {
     
     //============================== STATIC ATTRIBUTES ========================================
-
-    static {
-        LogConf.configure();
-    }
 
     //============================== INSTANCE ATTRIBUTES ======================================
 
@@ -70,7 +65,6 @@ public class DeployTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validateData();
 
         IProject proj = AntTaskUtil.createProject(this.projectFile, this.projectPassword);

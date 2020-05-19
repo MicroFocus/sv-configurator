@@ -25,10 +25,7 @@ import java.net.URL;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
@@ -36,17 +33,16 @@ import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorExceptio
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport;
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
+import com.microfocus.sv.svconfigurator.processor.printer.IPrinter;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.impl.CommandExecutor;
 import com.microfocus.sv.svconfigurator.util.AntTaskUtil;
 import com.microfocus.sv.svconfigurator.util.HttpUtils;
-import com.microfocus.sv.svconfigurator.util.OutputUtil;
 import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 
 public class ViewTask extends Task {
     //============================== STATIC ATTRIBUTES ========================================
-
-    private static final Logger LOG = LoggerFactory.getLogger(ViewTask.class);
 
     //============================== INSTANCE ATTRIBUTES ======================================
 
@@ -59,6 +55,7 @@ public class ViewTask extends Task {
 
     private boolean report;
     private String projectPassword;
+    private String outputFormat = PrinterFactory.getDefaultFormat();
 
     //============================== STATIC METHODS ===========================================
 
@@ -70,7 +67,6 @@ public class ViewTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validate();
 
         URL mgmtUri = AntTaskUtil.createUri(this.url, null);
@@ -81,14 +77,12 @@ public class ViewTask extends Task {
 
             IProject proj = this.projectFile != null ? AntTaskUtil.createProject(this.projectFile, this.projectPassword) : null;
             IService svc = exec.findService(this.service, proj);
+            IPrinter printer = PrinterFactory.create(outputFormat);
 
             ServiceRuntimeConfiguration conf = exec.getServiceRuntimeInfo(svc);
-            LOG.info(OutputUtil.createServiceInfoOutput(svc, conf));
+            ServiceRuntimeReport rep = (report) ? exec.getServiceRuntimeReport(svc) : null;
+            getProject().log(printer.createServiceInfoOutput(svc, conf, rep));
 
-            if(report) {
-                ServiceRuntimeReport rep = exec.getServiceRuntimeReport(svc);
-                LOG.info(OutputUtil.createServiceReportOutput(rep));
-            }
         } catch (CommunicatorException e) {
             throw new BuildException(e.getLocalizedMessage(), e);
         } catch (CommandExecutorException e) {
@@ -138,6 +132,10 @@ public class ViewTask extends Task {
 
     public void setProjectPassword(String projectPassword) {
         this.projectPassword = projectPassword;
+    }
+
+    public void setOutputFormat(String outputFormat) {
+        this.outputFormat = outputFormat;
     }
     //============================== INNER CLASSES ============================================
 

@@ -82,6 +82,7 @@ public class ListCLICommandProcessor extends AbstractProjectCommandProcessor imp
 
             final IProject proj = getProject(line);
             List<Server> servers = CliUtils.obtainServers(line, null, true);
+            final String outputFormat = CliUtils.obtainOutputFormat(line);
             ServersCommandExecutor executor = new ServersCommandExecutor(
                     servers, processor.getCommandExecutorFactory());
             executor.execute(new IServerCommandRunner() {
@@ -89,7 +90,7 @@ public class ListCLICommandProcessor extends AbstractProjectCommandProcessor imp
                 @Override
                 public void runCommand(ICommandExecutor executor)
                         throws AbstractSVCException {
-                    processor.process(proj, executor);
+                    processor.process(proj, outputFormat, executor);
                 }
             });
         } catch (ParseException e) {
@@ -127,6 +128,8 @@ public class ListCLICommandProcessor extends AbstractProjectCommandProcessor imp
         opts.addOption(CommandLineOptions.PROP_PROJ, CommandLineOptions.LONG_PROP_PROJ, true, "Specify this property (.vproj or .vproja file) either if you want to list only those services on SA server that are in the project (filtering) or if you want to use the server management URL from the project. " +
                 "If you don't specify the project file all services on the server will be printed.");
         opts.addOption(CommandLineOptions.PROPERTY_PROJ_PASSWORD, CommandLineOptions.LONG_PROPERTY_PROJ_PASSWORD, true, "Project encryption password");
+
+        CliUtils.addOutputFormatOptions(opts);
         return opts;
     }
 

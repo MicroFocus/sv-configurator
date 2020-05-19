@@ -18,37 +18,16 @@
  * __________________________________________________________________
  *
  */
-package com.microfocus.sv.svconfigurator.processor;
+package com.microfocus.sv.svconfigurator.processor.printer;
 
-import com.microfocus.sv.svconfigurator.core.IProject;
+import com.microfocus.sv.svconfigurator.core.IService;
+import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
+import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
+import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport;
+import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
 
-public class ViewProcessorInput {
+public interface IPrinter {
+    String createServiceInfoOutput(IService svc, ServiceRuntimeConfiguration conf, ServiceRuntimeReport report) throws CommandExecutorException;
 
-    private boolean detail;
-    private IProject project;
-    private String service;
-    private String outputFormat;
-
-    public ViewProcessorInput(boolean detail, IProject project, String service, String outputFormat) {
-        this.detail = detail;
-        this.project = project;
-        this.service = service;
-        this.outputFormat = outputFormat;
-    }
-
-    public boolean isDetail() {
-        return detail;
-    }
-
-    public IProject getProject() {
-        return project;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public String getOutputFormat() {
-        return outputFormat;
-    }
+    String createServiceListOutput(ServiceListAtom atom);
 }

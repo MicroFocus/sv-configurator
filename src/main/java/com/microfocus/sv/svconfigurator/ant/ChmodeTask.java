@@ -26,7 +26,6 @@ import java.net.URL;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
@@ -70,7 +69,6 @@ public class ChmodeTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validateData();
 
         IProject proj = this.projectFile != null ? AntTaskUtil.createProject(this.projectFile, this.projectPassword) : null;

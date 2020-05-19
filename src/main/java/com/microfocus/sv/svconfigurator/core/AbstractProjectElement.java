@@ -23,13 +23,11 @@ package com.microfocus.sv.svconfigurator.core;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
-import com.microfocus.sv.svconfigurator.core.impl.encryption.EncryptedNode;
 import com.microfocus.sv.svconfigurator.core.impl.encryption.ProjectElementDecryptorImpl;
 import com.microfocus.sv.svconfigurator.core.impl.exception.SVCParseException;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 public abstract class AbstractProjectElement implements IProjectElement {
 
@@ -42,6 +40,7 @@ public abstract class AbstractProjectElement implements IProjectElement {
     private String id;
     private String name;
     private String projectPassword;
+    @NonPrintable
     private IProjectElementDataSource ds;
     private byte[] decryptedBytes = null;
 
@@ -79,7 +78,7 @@ public abstract class AbstractProjectElement implements IProjectElement {
 
     @Override
     public InputStream getData() throws IOException, SVCParseException {
-        InputStream retVal = null;
+        InputStream retVal;
         if (this.encryptionMetadata == null || !this.encryptionMetadata.hasEncryptedNodes()) {
             retVal = this.ds.getData();
         } else {

@@ -93,7 +93,8 @@ public class ViewCLICommandProcessor extends AbstractProjectCommandProcessor {
             }
 
             List<Server> servers = CliUtils.obtainServers(line, null, true);
-            final ViewProcessorInput input = new ViewProcessorInput(line.hasOption(PROPERTY_REPORT), proj, lineArgs[0]);
+            final String outputFormat = CliUtils.obtainOutputFormat(line);
+            final ViewProcessorInput input = new ViewProcessorInput(line.hasOption(PROPERTY_REPORT), proj, lineArgs[0], outputFormat);
             ServersCommandExecutor executor = new ServersCommandExecutor(
                     servers, proc.getCommandExecutorFactory());
             executor.execute(new IServerCommandRunner() {
@@ -139,8 +140,6 @@ public class ViewCLICommandProcessor extends AbstractProjectCommandProcessor {
 
     /**
      * Property options like -r, -f or -uri
-     *
-     * @return
      */
     private Options createPropertyOptions() {
         Options opts = new Options();
@@ -153,13 +152,12 @@ public class ViewCLICommandProcessor extends AbstractProjectCommandProcessor {
                 "server management URL from the project.");
         opts.addOption(CommandLineOptions.PROPERTY_PROJ_PASSWORD, CommandLineOptions.LONG_PROPERTY_PROJ_PASSWORD, true, "Project encryption password");
 
+        CliUtils.addOutputFormatOptions(opts);
         return opts;
     }
 
     /**
      * Parameters like <project_file> or <service_ident>
-     *
-     * @return
      */
     private Options createMandatParamsOptions() {
         Options opts = new Options();

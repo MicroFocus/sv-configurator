@@ -22,7 +22,6 @@ package com.microfocus.sv.svconfigurator.core.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.microfocus.sv.svconfigurator.core.AbstractProjectElement;
@@ -32,12 +31,13 @@ import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
 import com.microfocus.sv.svconfigurator.core.IProjectElementVisitor;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
-import com.microfocus.sv.svconfigurator.core.impl.encryption.EncryptedNode;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 public class DataModel extends AbstractProjectElement implements IDataModel {
-
+    @NonPrintable
     private Set<IDataSet> dataSets;
     // ReferenceElement that the dataset belongs to
+    @NonPrintable
     private IService service;
 
     public DataModel(String id, String name, IProjectElementDataSource ds, EncryptionMetadata encryptionMetadata, String projectPassword) {

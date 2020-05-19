@@ -25,7 +25,6 @@ import java.net.URL;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
@@ -69,7 +68,6 @@ public class HotSwapTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validateData();
 
         Credentials credentials = ProjectUtils.createCredentials(this.username, this.password);
@@ -113,8 +111,6 @@ public class HotSwapTask extends Task {
      * task will automatically unlock it. Use this mode only when you want what
      * are you doing because you can rewrite another username's data on the
      * server.
-     * 
-     * @param force
      */
     public void setForce(boolean force) {
         this.force = force;

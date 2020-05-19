@@ -25,19 +25,17 @@ import java.net.URL;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
+import com.microfocus.sv.svconfigurator.processor.printer.IPrinter;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.impl.CommandExecutor;
 import com.microfocus.sv.svconfigurator.util.AntTaskUtil;
 import com.microfocus.sv.svconfigurator.util.HttpUtils;
-import com.microfocus.sv.svconfigurator.util.OutputUtil;
 import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 
 /**
@@ -46,14 +44,13 @@ import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 public class ListTask extends Task {
     //============================== STATIC ATTRIBUTES ========================================
 
-    private static final Logger LOG = LoggerFactory.getLogger(ListTask.class);
-
     //============================== INSTANCE ATTRIBUTES ======================================
     private File projectFile;
     private String username;
     private String password;
     private String url;
     private String projectPassword;
+    private String outputFormat = PrinterFactory.getDefaultFormat();
 
     //============================== STATIC METHODS ===========================================
 
@@ -65,7 +62,6 @@ public class ListTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validate();
 
         URL mgmtUri = AntTaskUtil.createUri(this.url, null);
@@ -75,9 +71,10 @@ public class ListTask extends Task {
             ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, cred));
 
             IProject proj = this.projectFile != null ? AntTaskUtil.createProject(this.projectFile, projectPassword) : null;
+            IPrinter printer = PrinterFactory.create(outputFormat);
 
             ServiceListAtom atom = exec.getServiceList(proj == null ? null : proj.getId());
-            LOG.info(OutputUtil.createServiceListOutput(atom));
+            getProject().log(printer.createServiceListOutput(atom));
         } catch (CommunicatorException e) {
             throw new BuildException(e.getLocalizedMessage(), e);
         }
@@ -116,6 +113,9 @@ public class ListTask extends Task {
         this.projectPassword = projectPassword;
     }
 
-    //============================== INNER CLASSES ============================================
+    public void setOutputFormat(String outputFormat) {
+        this.outputFormat = outputFormat;
+    }
+//============================== INNER CLASSES ============================================
 
 }

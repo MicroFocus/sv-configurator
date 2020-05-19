@@ -18,37 +18,14 @@
  * __________________________________________________________________
  *
  */
-package com.microfocus.sv.svconfigurator.processor;
+package com.microfocus.sv.svconfigurator.processor.printer;
 
-import com.microfocus.sv.svconfigurator.core.IProject;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class ViewProcessorInput {
-
-    private boolean detail;
-    private IProject project;
-    private String service;
-    private String outputFormat;
-
-    public ViewProcessorInput(boolean detail, IProject project, String service, String outputFormat) {
-        this.detail = detail;
-        this.project = project;
-        this.service = service;
-        this.outputFormat = outputFormat;
-    }
-
-    public boolean isDetail() {
-        return detail;
-    }
-
-    public IProject getProject() {
-        return project;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public String getOutputFormat() {
-        return outputFormat;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface NonPrintable {
 }

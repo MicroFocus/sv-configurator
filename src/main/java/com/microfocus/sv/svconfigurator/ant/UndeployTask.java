@@ -26,7 +26,6 @@ import java.net.URL;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
@@ -39,10 +38,6 @@ import com.microfocus.sv.svconfigurator.util.AntTaskUtil;
 import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 
 public class UndeployTask extends Task {
-
-    static {
-        LogConf.configure();
-    }
 
     private boolean force = false;
     private String service;

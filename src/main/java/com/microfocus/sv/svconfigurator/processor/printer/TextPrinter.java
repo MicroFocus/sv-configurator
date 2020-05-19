@@ -18,7 +18,7 @@
  * __________________________________________________________________
  *
  */
-package com.microfocus.sv.svconfigurator.util;
+package com.microfocus.sv.svconfigurator.processor.printer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +32,10 @@ import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorExcep
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
+import com.microfocus.sv.svconfigurator.util.ProjectUtils;
+import com.microfocus.sv.svconfigurator.util.StringUtils;
 
-public class OutputUtil {
+public class TextPrinter implements IPrinter {
     //============================== STATIC ATTRIBUTES ========================================
 
     private static final String TABLE_FORMAT_INFO = "  %-25s %s\n";
@@ -44,7 +46,7 @@ public class OutputUtil {
 
     //============================== STATIC METHODS ===========================================
 
-    public static String createServiceInfoOutput(IService svc, ServiceRuntimeConfiguration conf) throws CommandExecutorException {
+    public String createServiceInfoOutput(IService svc, ServiceRuntimeConfiguration conf, ServiceRuntimeReport report) throws CommandExecutorException {
         StringBuilder sb = new StringBuilder();
         sb.append("Service Runtime Information:\n");
         sb.append(String.format(TABLE_FORMAT_INFO, "Service Name", svc.getName()));
@@ -79,13 +81,17 @@ public class OutputUtil {
         }
         sb.append(StringUtils.createTable(perfModelTableData));
 
+        if (report != null) {
+            sb.append('\n');
+            appendServiceReportOutput(sb, report);
+        }
+
         return sb.toString();
     }
 
-    public static String createServiceReportOutput(ServiceRuntimeReport rep) {
+    private static void appendServiceReportOutput(StringBuilder sb, ServiceRuntimeReport rep) {
         ServiceRuntimeReport.SimulationStatistics stat = rep.getSimulationStats();
 
-        StringBuilder sb = new StringBuilder();
         sb.append("Service Runtime Report:\n");
         sb.append(String.format(TABLE_FORMAT_REPORT, "Number of Errors", rep.getErrorCount()));
         sb.append(String.format(TABLE_FORMAT_REPORT, "Number of Warnings", rep.getWarningCount()));
@@ -113,11 +119,13 @@ public class OutputUtil {
             sb.append(String.format(TABLE_FORMAT_REPORT, "Clients Count", clients.size()));
             sb.append(String.format(TABLE_FORMAT_REPORT, "Clients", StringUtils.joinWithDelim(", ", clients.toArray())));
         }
-        
-        return sb.toString();
     }
 
-    public static String createServiceListOutput(ServiceListAtom atom) {
+    public String createServiceListOutput(ServiceListAtom atom) {
+        if (atom.getEntries().isEmpty()) {
+            return "There are no services on the server.";
+        }
+
         Collection<Collection<String>> rows = new ArrayList<Collection<String>>();
         for (ServiceListAtom.ServiceEntry e : atom.getEntries()) {
             Collection<String> row = new ArrayList<String>(4);
@@ -134,19 +142,4 @@ public class OutputUtil {
 
         return StringUtils.createTable(rows, headers);
     }
-
-    //============================== CONSTRUCTORS =============================================
-
-    //============================== ABSTRACT METHODS =========================================
-
-    //============================== OVERRIDEN METHODS ========================================
-
-    //============================== INSTANCE METHODS =========================================
-
-    //============================== PRIVATE METHODS ==========================================
-
-    //============================== GETTERS / SETTERS ========================================
-
-    //============================== INNER CLASSES ============================================
-
 }

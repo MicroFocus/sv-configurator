@@ -24,8 +24,18 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.microfocus.sv.svconfigurator.core.*;
+import com.microfocus.sv.svconfigurator.core.AbstractProjectElement;
+import com.microfocus.sv.svconfigurator.core.IContentFile;
+import com.microfocus.sv.svconfigurator.core.IDataModel;
+import com.microfocus.sv.svconfigurator.core.ILoggedServiceCallList;
+import com.microfocus.sv.svconfigurator.core.IPerfModel;
+import com.microfocus.sv.svconfigurator.core.IProject;
+import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
+import com.microfocus.sv.svconfigurator.core.IProjectElementVisitor;
+import com.microfocus.sv.svconfigurator.core.IService;
+import com.microfocus.sv.svconfigurator.core.IServiceDescription;
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 public class Service extends AbstractProjectElement implements IService {
 
@@ -36,6 +46,7 @@ public class Service extends AbstractProjectElement implements IService {
     private IProject baseProject;
     private String runtimeIssues;
     private boolean nonExistentRealService;
+    @NonPrintable
     private Set<ILoggedServiceCallList> loggedServiceCallLists;
 
     public Service(String id, String name, IProjectElementDataSource ds, EncryptionMetadata encryptionMetadata, String projectPassword, String runtimeIssues, boolean nonExistentRealService) {

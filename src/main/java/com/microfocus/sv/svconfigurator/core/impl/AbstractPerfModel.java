@@ -20,19 +20,18 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl;
 
-import java.util.List;
-
 import com.microfocus.sv.svconfigurator.core.AbstractProjectElement;
 import com.microfocus.sv.svconfigurator.core.IPerfModel;
 import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
 import com.microfocus.sv.svconfigurator.core.IProjectElementVisitor;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
-import com.microfocus.sv.svconfigurator.core.impl.encryption.EncryptedNode;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 public abstract class AbstractPerfModel extends AbstractProjectElement
         implements IPerfModel {
 
+    @NonPrintable
     private IService service;
 
     public AbstractPerfModel(String id, String name,

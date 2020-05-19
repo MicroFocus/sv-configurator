@@ -1,7 +1,0 @@
-svdeploy=com.microfocus.sv.svconfigurator.ant.DeployTask
-svundeploy=com.microfocus.sv.svconfigurator.ant.UndeployTask
-svlist=com.microfocus.sv.svconfigurator.ant.ListTask
-svview=com.microfocus.sv.svconfigurator.ant.ViewTask
-svunlock=com.microfocus.sv.svconfigurator.ant.UnlockTask
-svchangemode=com.microfocus.sv.svconfigurator.ant.ChmodeTask
-svhotswap=com.microfocus.sv.svconfigurator.ant.HotSwapTask

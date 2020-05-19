@@ -28,7 +28,7 @@ import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
 
 public interface IListProcessor {
 
-    void process(IProject project, ICommandExecutor exec) throws CommunicatorException, CommandExecutorException;
+    void process(IProject project, String outputFormat, ICommandExecutor exec) throws CommunicatorException, CommandExecutorException;
 
     ICommandExecutorFactory getCommandExecutorFactory();
 

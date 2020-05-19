@@ -24,12 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.microfocus.sv.svconfigurator.core.IProject;
-import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
+import com.microfocus.sv.svconfigurator.processor.printer.IPrinter;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
-import com.microfocus.sv.svconfigurator.util.OutputUtil;
 
 /**
  * Processor for the list command.
@@ -50,13 +50,9 @@ public class ListProcessor implements IListProcessor {
     }
 
     @Override
-    public void process(IProject proj, ICommandExecutor exec) throws CommunicatorException, CommandExecutorException {
+    public void process(IProject proj, String outputFormat, ICommandExecutor exec) throws CommunicatorException {
         ServiceListAtom atom = exec.getServiceList(proj == null ? null : proj.getId());
-
-        if (atom.getEntries().isEmpty()) {
-            LOG.info("There are no services on the server.");
-        } else {
-            LOG.info(OutputUtil.createServiceListOutput(atom));
-        }
+        IPrinter printer = PrinterFactory.create(outputFormat);
+        LOG.info(printer.createServiceListOutput(atom));
     }
 }

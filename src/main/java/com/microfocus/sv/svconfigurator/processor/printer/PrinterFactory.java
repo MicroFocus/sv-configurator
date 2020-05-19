@@ -18,37 +18,24 @@
  * __________________________________________________________________
  *
  */
-package com.microfocus.sv.svconfigurator.processor;
+package com.microfocus.sv.svconfigurator.processor.printer;
 
-import com.microfocus.sv.svconfigurator.core.IProject;
+public class PrinterFactory {
+    public static final String FORMAT_TEXT = "text";
+    public static final String FORMAT_JSON = "json";
 
-public class ViewProcessorInput {
-
-    private boolean detail;
-    private IProject project;
-    private String service;
-    private String outputFormat;
-
-    public ViewProcessorInput(boolean detail, IProject project, String service, String outputFormat) {
-        this.detail = detail;
-        this.project = project;
-        this.service = service;
-        this.outputFormat = outputFormat;
+    public static IPrinter create(String type) {
+        if (FORMAT_JSON.equalsIgnoreCase(type)) {
+            return new JsonPrinter();
+        }
+        return new TextPrinter();
     }
 
-    public boolean isDetail() {
-        return detail;
+    public static String[] getSupportedFormats() {
+        return new String[]{FORMAT_TEXT, FORMAT_JSON};
     }
 
-    public IProject getProject() {
-        return project;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public String getOutputFormat() {
-        return outputFormat;
+    public static String getDefaultFormat() {
+        return FORMAT_TEXT;
     }
 }

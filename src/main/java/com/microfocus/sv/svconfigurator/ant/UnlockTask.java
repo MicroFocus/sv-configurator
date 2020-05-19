@@ -24,11 +24,8 @@ import java.net.URL;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.microfocus.sv.svconfigurator.Global;
-import com.microfocus.sv.svconfigurator.LogConf;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommunicatorException;
@@ -41,9 +38,6 @@ import com.microfocus.sv.svconfigurator.util.ProjectUtils;
 
 public class UnlockTask extends Task {
     //============================== STATIC ATTRIBUTES ========================================
-
-    private static final Logger LOG = LoggerFactory.getLogger(UnlockTask.class);
-
 
     //============================== INSTANCE ATTRIBUTES ======================================
     private String service;
@@ -62,7 +56,6 @@ public class UnlockTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LogConf.configure();
         this.validate();
 
         URL mgmtUri = AntTaskUtil.createUri(this.url, null);
@@ -76,7 +69,7 @@ public class UnlockTask extends Task {
 
             exec.lockService(svc, clientId);
 
-            LOG.info("Service lock change successfully processed.");
+            getProject().log("Service lock change successfully processed.");
         } catch (CommunicatorException e) {
             throw new BuildException(e.getLocalizedMessage(), e);
         } catch (CommandExecutorException e) {

@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.helper.ReferenceElement;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 @XmlRootElement(name = "virtualServiceRuntimeConfiguration", namespace = ServiceRuntimeConfiguration.NAMESPACE)
 @XmlType(propOrder = { "service", "dataModel", "perfModel", "clientId", "runtimeMode", "logMessages", "deploymentErrorMessage", "deploymentState" })
@@ -42,11 +43,13 @@ public class ServiceRuntimeConfiguration implements Cloneable {
     // ============================== INSTANCE ATTRIBUTES
     // ======================================
     private String id;
+    @NonPrintable
     private ReferenceElement service;
     private ReferenceElement dataModel;
     private ReferenceElement perfModel;
     private String clientId;
     private RuntimeMode runtimeMode;
+    @NonPrintable
     private LogMessages logMessages;
     private String deploymentErrorMessage;
     private DeploymentState deploymentState;
@@ -89,8 +92,8 @@ public class ServiceRuntimeConfiguration implements Cloneable {
     }
 
     @Override
-    @SuppressWarnings("CloneDoesntCallSuperClone")
-    public ServiceRuntimeConfiguration clone() throws CloneNotSupportedException {
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
+    public ServiceRuntimeConfiguration clone() {
         ServiceRuntimeConfiguration res = new ServiceRuntimeConfiguration();
         res.setId(this.getId());
         res.setServiceId(this.getServiceId());

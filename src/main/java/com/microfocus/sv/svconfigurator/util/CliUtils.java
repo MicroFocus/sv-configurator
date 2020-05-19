@@ -40,6 +40,7 @@ import com.microfocus.sv.svconfigurator.core.impl.exception.AbstractSVCException
 import com.microfocus.sv.svconfigurator.core.impl.exception.SVCParseException;
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
 import com.microfocus.sv.svconfigurator.core.server.ServerParser;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 
 public class CliUtils {
 
@@ -54,6 +55,8 @@ public class CliUtils {
     private static final String LONG_SERVERS_PARAM = "servers";
     private static final String LONG_USE_SERVER_PARAM = "use-server";
     public static final String DEFAULT_SERVER_ID = "Default";
+    private static final String PARAM_OUTPUT_FORMAT = "of";
+    private static final String LONG_PARAM_OUTPUT_FORMAT = "output-format";
 
     // ============================== STATIC ATTRIBUTES
     // ========================================
@@ -82,6 +85,7 @@ public class CliUtils {
 
         formatter.setLongOptPrefix("--");
         formatter.setLeftPadding(2);
+        formatter.setWidth(100);
 
         formatter.printHelp(usage, "Parameters: ", props, "");
     }
@@ -108,9 +112,6 @@ public class CliUtils {
 
     /**
      * Appends the Management endpoint connection info options
-     *
-     * @param opts
-     * @return
      */
     public static Options addConnectionOptions(Options opts) {
         opts.addOption(PARAM_URL, LONG_PARAM_URL, true,
@@ -131,14 +132,17 @@ public class CliUtils {
         return opts;
     }
 
-    public static Credentials obtainCredentials(CommandLine line) {
-        String username = line.hasOption(PARAM_USER) ? line
-                .getOptionValue(PARAM_USER) : null;
-        String password = line.hasOption(PARAM_PASS) ? line
-                .getOptionValue(PARAM_PASS) : null;
-        Credentials credentials = username != null ? new Credentials(username,
-                password) : null;
-        return credentials;
+    public static Options addOutputFormatOptions(Options opts) {
+        opts.addOption(PARAM_OUTPUT_FORMAT, LONG_PARAM_OUTPUT_FORMAT, true,
+                "Output format. Supported values are: '"
+                        + StringUtils.joinWithDelim("', '", (Object[]) PrinterFactory.getSupportedFormats())
+                        + "'. Default value is '" + PrinterFactory.getDefaultFormat() + "'.");
+        return opts;
+    }
+
+    public static String obtainOutputFormat(CommandLine line) {
+        return (line.hasOption(LONG_PARAM_OUTPUT_FORMAT))
+                ? line.getOptionValue(LONG_PARAM_OUTPUT_FORMAT) : PrinterFactory.getDefaultFormat();
     }
 
     public static List<Server> obtainServers(CommandLine line, IProject project)
