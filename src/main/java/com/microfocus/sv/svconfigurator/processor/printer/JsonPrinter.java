@@ -21,17 +21,21 @@
 package com.microfocus.sv.svconfigurator.processor.printer;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
+import com.microfocus.sv.svconfigurator.core.impl.Service;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
@@ -43,42 +47,81 @@ public class JsonPrinter implements IPrinter {
             return new JsonPrimitive(src.getRef());
         }
     }
-    private static class ServiceDetails {
+
+    private class ServiceEntrySerializer implements JsonSerializer<ServiceListAtom.ServiceEntry> {
+        public JsonElement serialize(ServiceListAtom.ServiceEntry src, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject js = beginServiceSerialization(src, Boolean.parseBoolean(src.getNonExistentRealService()));
+
+            Map runtimeIssuesMap = JsonPrinter.this.gson.fromJson(src.getRuntimeIssues(), Map.class);
+            Object issues = runtimeIssuesMap.get("issues");
+            if (issues != null) {
+                js.add("runtimeIssues", JsonPrinter.this.gson.toJsonTree(issues));
+            }
+
+            return js;
+        }
+    }
+
+    private class ServiceSerializer implements JsonSerializer<Service> {
+        public JsonElement serialize(Service src, Type typeOfSrc, JsonSerializationContext context) {
+            return beginServiceSerialization(src, src.NonExistentRealService());
+        }
+    }
+
+    private JsonObject beginServiceSerialization(Object serviceObj, boolean nonExistentRealService) {
+        JsonObject js = JsonPrinter.this.serializersGson.toJsonTree(serviceObj).getAsJsonObject();
+        js.addProperty("useRealService", !nonExistentRealService);
+        return js;
+    }
+
+    private static class ViewServiceDetails {
         IService service;
         ServiceRuntimeConfiguration runtimeConfiguration;
         ServiceRuntimeReport runtimeReport;
 
-        public ServiceDetails(IService service, ServiceRuntimeConfiguration runtimeConfiguration, ServiceRuntimeReport runtimeReport) {
+        public ViewServiceDetails(IService service, ServiceRuntimeConfiguration runtimeConfiguration, ServiceRuntimeReport runtimeReport) {
             this.service = service;
             this.runtimeConfiguration = runtimeConfiguration;
             this.runtimeReport = runtimeReport;
         }
     }
 
+    private Gson serializersGson;
+    private Gson gson;
+
+    public JsonPrinter() {
+        GsonBuilder builder = new GsonBuilder()
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                .registerTypeAdapter(ReferenceElement.class, new ReferenceElementSerializer())
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes f) {
+                        return f.getAnnotation(NonPrintable.class) != null;
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> clazz) {
+                        return false;
+                    }
+                });
+        serializersGson = builder.create();
+        builder.registerTypeAdapter(ServiceListAtom.ServiceEntry.class, new ServiceEntrySerializer());
+        builder.registerTypeAdapter(Service.class, new ServiceSerializer());
+        gson = builder.create();
+    }
+
     @Override
     public String createServiceInfoOutput(IService svc, ServiceRuntimeConfiguration conf, ServiceRuntimeReport report) {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(ReferenceElement.class, new ReferenceElementSerializer())
-                .addSerializationExclusionStrategy(new ServiceInfoExclusionStrategy())
-                .create();
-        return gson.toJson(new ServiceDetails(svc, conf, report));
+        return gson.toJson(new ViewServiceDetails(svc, conf, report));
     }
     @Override
     public String createServiceListOutput(ServiceListAtom atom) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(atom.getEntries());
     }
 
-    private static class ServiceInfoExclusionStrategy implements ExclusionStrategy {
-        @Override
-        public boolean shouldSkipField(FieldAttributes f) {
-            return f.getAnnotation(NonPrintable.class) != null;
-        }
-
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
+    @Override
+    public String createProjectListOutput(IProject project) {
+        return gson.toJson(project);
     }
 }

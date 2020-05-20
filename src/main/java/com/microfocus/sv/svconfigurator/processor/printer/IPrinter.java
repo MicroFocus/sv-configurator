@@ -20,6 +20,7 @@
  */
 package com.microfocus.sv.svconfigurator.processor.printer;
 
+import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
@@ -28,6 +29,6 @@ import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
 
 public interface IPrinter {
     String createServiceInfoOutput(IService svc, ServiceRuntimeConfiguration conf, ServiceRuntimeReport report) throws CommandExecutorException;
-
     String createServiceListOutput(ServiceListAtom atom);
+    String createProjectListOutput(IProject project);
 }

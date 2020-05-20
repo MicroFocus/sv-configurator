@@ -41,10 +41,14 @@ public class Service extends AbstractProjectElement implements IService {
 
     private Set<IDataModel> dataModels;
     private Set<IPerfModel> perfModels;
+    @NonPrintable
     private Set<IServiceDescription> svcDescs;
+    @NonPrintable
     private Set<IContentFile> contentFiles;
+    @NonPrintable
     private IProject baseProject;
     private String runtimeIssues;
+    @NonPrintable
     private boolean nonExistentRealService;
     @NonPrintable
     private Set<ILoggedServiceCallList> loggedServiceCallLists;

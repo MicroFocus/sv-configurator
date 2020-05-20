@@ -26,11 +26,13 @@ public class ListProjectProcessorInput {
 
     private IProject project;
     private boolean verbose;
+    private String outputFormat;
 
-    public ListProjectProcessorInput(IProject project, boolean verbose) {
+    public ListProjectProcessorInput(IProject project, boolean verbose, String outputFormat) {
         super();
         this.project = project;
         this.verbose = verbose;
+        this.outputFormat = outputFormat;
     }
 
     public IProject getProject() {
@@ -41,4 +43,7 @@ public class ListProjectProcessorInput {
         return verbose;
     }
 
+    public String getOutputFormat() {
+        return outputFormat;
+    }
 }

@@ -27,6 +27,7 @@ import java.util.List;
 
 import com.microfocus.sv.svconfigurator.core.IDataModel;
 import com.microfocus.sv.svconfigurator.core.IPerfModel;
+import com.microfocus.sv.svconfigurator.core.IProject;
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeConfiguration;
@@ -141,5 +142,21 @@ public class TextPrinter implements IPrinter {
         Collection<String> headers = Arrays.asList("Name", "Mode", "ID", "Runtime Issue(s)");
 
         return StringUtils.createTable(rows, headers);
+    }
+
+    public String createProjectListOutput(IProject project) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("project: ").append(project.getName()).append('\n');
+        sb.append("services: \n");
+
+        Collection<IService> services = project.getServices();
+        List<List<String>> tableData = new ArrayList<List<String>>(services.size());
+
+        for (IService svc : services) {
+            tableData.add(Arrays.asList(svc.getName(), svc.getId()));
+        }
+
+        sb.append(StringUtils.createTable(tableData));
+        return sb.toString();
     }
 }

@@ -36,11 +36,9 @@ public class Project extends AbstractProjectElement implements IProject {
     private Set<IService> services;
 
     private URL serverUrl;
-    private String projectPassword;
 
     public Project(String id, String name, String projectPassword, URL serverUrl, IProjectElementDataSource ds) {
         super(id, name, ds);
-        this.projectPassword = projectPassword;
 
         this.services = new HashSet<IService>();
         this.serverUrl = serverUrl;

@@ -20,17 +20,12 @@
  */
 package com.microfocus.sv.svconfigurator.processor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.microfocus.sv.svconfigurator.core.IProject;
-import com.microfocus.sv.svconfigurator.core.IService;
-import com.microfocus.sv.svconfigurator.util.StringUtils;
+import com.microfocus.sv.svconfigurator.processor.printer.IPrinter;
+import com.microfocus.sv.svconfigurator.processor.printer.PrinterFactory;
 
 public class ListProjectProcessor implements IListProjectProcessor {
     
@@ -39,18 +34,7 @@ public class ListProjectProcessor implements IListProjectProcessor {
     @Override
     public void process(ListProjectProcessorInput input) {
         IProject proj = input.getProject();
-        
-        LOG.info("project: "+ proj.getName());
-        LOG.info("services: ");
-        
-        Collection<IService> svcs = proj.getServices();
-        List<List<String>> tableData = new ArrayList<List<String>>(svcs.size());
-        
-        for (IService svc : svcs) {
-            tableData.add(Arrays.asList(svc.getName(), svc.getId()));
-        }
-        
-        LOG.info(StringUtils.createTable(tableData));
+        IPrinter printer = PrinterFactory.create(input.getOutputFormat());
+        LOG.info(printer.createProjectListOutput(proj));
     }
-
 }

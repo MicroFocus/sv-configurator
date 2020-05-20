@@ -20,16 +20,17 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb.atom;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
 
 @XmlRootElement(name = "feed", namespace = AbstractFeed.NAMESPACE)
 public class ServiceListAtom extends AbstractFeed<ServiceListAtom.ServiceEntry> {
@@ -78,8 +79,10 @@ public class ServiceListAtom extends AbstractFeed<ServiceListAtom.ServiceEntry> 
         private String dataModel;
         private String perfModel;
         private String projectId;
+        @NonPrintable
         private String runtimeIssues;
         private String runtimeIssuesParsed;
+        @NonPrintable
         private String nonExistentRealService;
 
         @XmlElement(name = "ServiceMode")

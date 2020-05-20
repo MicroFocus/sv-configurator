@@ -44,9 +44,6 @@ public class ListProjectCLICommandProcessor extends AbstractProjectCommandProces
     public static final String COMMAND = "listProject";
     private static final String MANDAT_PROP_PROJ = "project_file";
     
-    //private static final String PARAM_LONG = "l";
-    //private static final String LONG_PARAM_LONG = "long";
-
     private static final String HELP_USAGE = COMMAND + " [parameters] <" + MANDAT_PROP_PROJ + ">";
     
     private static final Logger LOG = LoggerFactory.getLogger(ListProjectCLICommandProcessor.class);
@@ -72,7 +69,7 @@ public class ListProjectCLICommandProcessor extends AbstractProjectCommandProces
                 throw new ParseException("You have to specify the project.");
             }
             
-            this.processor.process(new ListProjectProcessorInput(proj, false));
+            this.processor.process(new ListProjectProcessorInput(proj, false, CliUtils.obtainOutputFormat(line)));
         } catch (ParseException e) {
             LOG.error(e.getLocalizedMessage(), e);
             CliUtils.printHelp(HELP_USAGE, opts, this.createMandatParamOptions());
@@ -89,9 +86,9 @@ public class ListProjectCLICommandProcessor extends AbstractProjectCommandProces
     private Options createPropsOptions() {
         Options opts = new Options();
 
-        //opts.addOption(PARAM_LONG, LONG_PARAM_LONG, false, "Long output (will list not only service names but also its data and performance models.");
         opts.addOption(CommandLineOptions.PROPERTY_PROJ_PASSWORD, CommandLineOptions.LONG_PROPERTY_PROJ_PASSWORD, true, "Project encryption password");
-        
+
+        CliUtils.addOutputFormatOptions(opts);
         return opts;
     }
     

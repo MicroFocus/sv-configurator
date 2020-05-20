@@ -20,12 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.build.parser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -34,17 +28,19 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
-import net.lingala.zip4j.exception.ZipException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.microfocus.sv.svconfigurator.core.IProjectElement;
 import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
+import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
 import com.microfocus.sv.svconfigurator.core.impl.encryption.EncryptedNode;
 import com.microfocus.sv.svconfigurator.core.impl.exception.SVCParseException;
-import com.microfocus.sv.svconfigurator.processor.DeployProcessor;
 
 /**
  * Abstract class for XML parser - it creates an XMLEventReader and so concrete implementation does not have to create it
@@ -115,8 +111,6 @@ public abstract class AbstractXMLElementParser extends AbstractProjectElementPar
 
     /**
      * Skips in the XML stream to the element with specified name. If there is no such a element, an exception is thrown
-     *
-     * @throws com.microfocus.sv.svconfigurator.core.impl.exception.SVCParseException
      */
     public static StartElement skipToElement(XMLEventReader reader, String element) throws SVCParseException, XMLStreamException {
         while (reader.hasNext()) {
@@ -143,7 +137,7 @@ public abstract class AbstractXMLElementParser extends AbstractProjectElementPar
         Attribute atr = element.getAttributeByName(QName.valueOf(attrName));
         if (atr == null) {
             if (optional) {
-                LOG.warn("There is attribute with name '" + attrName + "' in the element "+ element.toString());
+                LOG.debug("There is no attribute with name '" + attrName + "' in the element "+ element.toString());
                 return "";
             } else {
                 throw new SVCParseException("There is no attribute with name '" + attrName + "' in the element "+ element.toString());

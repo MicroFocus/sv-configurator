@@ -39,7 +39,8 @@ public abstract class AbstractProjectElement implements IProjectElement {
     protected EncryptionMetadata encryptionMetadata;
     private String id;
     private String name;
-    private String projectPassword;
+    @NonPrintable
+    protected String projectPassword;
     @NonPrintable
     private IProjectElementDataSource ds;
     private byte[] decryptedBytes = null;
