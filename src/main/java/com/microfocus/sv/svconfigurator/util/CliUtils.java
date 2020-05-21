@@ -83,11 +83,13 @@ public class CliUtils {
     public static void printPropertyHelp(String usage, Options props) {
         HelpFormatter formatter = new HelpFormatter();
 
+        formatter.setSyntaxPrefix("Usage: ");
         formatter.setLongOptPrefix("--");
         formatter.setLeftPadding(2);
         formatter.setWidth(100);
+        formatter.setOptionComparator(null);
 
-        formatter.printHelp(usage, "Parameters: ", props, "");
+        formatter.printHelp(usage, "\nParameters: ", props, "");
     }
 
     public static void printMandatParamsHelp(Options param) {
@@ -98,12 +100,13 @@ public class CliUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintWriter pw = new PrintWriter(baos);
 
-        pw.append("Mandatory Parameters: \n");
+        pw.append("\nMandatory Parameters: \n");
 
         HelpFormatter formatter = new HelpFormatter();
 
         formatter.setLongOptPrefix("");
         formatter.setOptPrefix("");
+        formatter.setWidth(100);
 
         formatter.printOptions(pw, formatter.getWidth(), param, 2, 3);
         pw.close();
@@ -117,18 +120,15 @@ public class CliUtils {
         opts.addOption(PARAM_URL, LONG_PARAM_URL, true,
                 "URL of the server management endpoint.");
         opts.addOption(PARAM_USER, LONG_PARAM_USER, true,
-                "Username for server management endpoint connection");
+                "Username for server management endpoint connection.");
         opts.addOption(PARAM_PASS, LONG_PARAM_PASS, true,
-                "Password for server management endpoint connection");
-        opts.addOption(
-                null,
-                LONG_SERVERS_PARAM,
-                true,
-                "A file containing properties of servers (management URL, username, and password)");
+                "Password for server management endpoint connection.");
+        opts.addOption(null, LONG_SERVERS_PARAM, true,
+                "A file containing connection properties to one or more SV servers.\n"
+                        + "The file format is described at: https://github.com/MicroFocus/sv-configurator");
         opts.addOption(null, LONG_USE_SERVER_PARAM, true,
-                "Selected server ID from the property file described by --" + LONG_SERVERS_PARAM
-                        + " parameter. Just the selected server will be used.");
-
+                "Selects the server if the servers file specified by --" + LONG_SERVERS_PARAM
+                        + " parameter contains multiple items.");
         return opts;
     }
 
@@ -204,9 +204,7 @@ public class CliUtils {
      * Obtains the information about management endpoint connection from the
      * command line
      *
-     * @param line
-     * @return
-     * @throws org.apache.commons.cli.ParseException
+     * @throws SVCParseException
      *             if there is no management endpoint connection info in the
      *             command line.
      */

@@ -97,9 +97,9 @@ public class ChmodeCLICommandProcessor extends AbstractProjectCommandProcessor i
             IProject proj = this.getProject(line);
             List<Server> servers = CliUtils.obtainServers(line, proj);
 
-            String lineArgs[] = line.getArgs();
+            String[] lineArgs = line.getArgs();
             if (lineArgs.length != 2) {
-                throw new ParseException("Expected 2 arguments(<service_identification> <service_status>).");
+                throw new ParseException("Expected 2 arguments (<service_ident> <service_mode>).");
             }
 
             boolean force = line.hasOption(PARAM_FORCE);
@@ -118,7 +118,7 @@ public class ChmodeCLICommandProcessor extends AbstractProjectCommandProcessor i
                     mode = ServiceRuntimeConfiguration.RuntimeMode.valueOf(modeParamValue.toUpperCase());
                 }
             } catch (IllegalArgumentException ex) {
-                throw new ParseException("Mode '" + modeParamValue + "' is illegal, take a look into the help.");
+                throw new ParseException("Service mode '" + modeParamValue + "' is illegal, take a look into the help.");
             }
             
             final ChmodeProcessorInput input = new ChmodeProcessorInput(force, proj, svcIdent, dataModel, perfModel, mode, defaultDataModel, defaultPerfModel);
