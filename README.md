@@ -9,6 +9,7 @@ Micro Focus Service Virtualization:
 
 SVConfigurator is embedded in [Micro Focus automation plugin for Jenkins CI](https://github.com/jenkinsci/hpe-application-automation-tools-plugin) and allows to use most of its functionality as native Jenkins CI Plugin.
 
+
 ## List of commands
 SVConfigurator supports the following operations:
 
@@ -29,6 +30,8 @@ SVConfigurator supports the following operations:
 
 **Note:** If you use encrypted SV project (**`-w`** or **`--project-password options`**), you must download and install JCE Unlimited Strength Jurisdiction Policy Files for your JDK version from https://www.oracle.com/technetwork/java/javase/downloads/jce-all-download-5170447.html
 
+## Binaries
+SVConfigurator binaries can be found in this maven repo: https://dl.bintray.com/adm/maven/com/microfocus/sv/SVConfigurator/
 
 ## Servers file format
 A _servers_ file in accord with the example bellow can be specified by **`--servers`** parameter to all commands connecting to SV server. 
