@@ -23,7 +23,6 @@ package com.microfocus.sv.svconfigurator.core.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.microfocus.sv.svconfigurator.util.CliUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +31,7 @@ import com.microfocus.sv.svconfigurator.core.impl.exception.AbstractSVCException
 import com.microfocus.sv.svconfigurator.core.impl.exception.CommandExecutorException;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
+import com.microfocus.sv.svconfigurator.util.CliUtils;
 
 public class ServersCommandExecutor {
 
@@ -59,7 +59,7 @@ public class ServersCommandExecutor {
         for (Server server : servers) {
             ICommandExecutor executor;
             try {    
-                executor = commandExecutorFactory.createCommandExecutor(server.getURL(), server.getCredentials());
+                executor = commandExecutorFactory.createCommandExecutor(server.getURL(), server.isTrustEveryone(), server.getCredentials());
             } catch (AbstractSVCException e) {
                 throw new CommandExecutorException("Failed to initiate connection to " + getServerIdentifier(server) + ": " + e.getMessage(), e);
             } catch (Exception e) {

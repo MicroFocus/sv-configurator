@@ -30,6 +30,6 @@ import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
  */
 public interface ICommandExecutorFactory {
 
-    ICommandExecutor createCommandExecutor(URL managementURI, Credentials credentials) throws CommunicatorException;
+    ICommandExecutor createCommandExecutor(URL managementURI, boolean trustEveryone, Credentials credentials) throws CommunicatorException;
 
 }

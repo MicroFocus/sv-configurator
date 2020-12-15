@@ -31,7 +31,7 @@ import com.microfocus.sv.svconfigurator.util.HttpUtils;
 public class CommandExecutorFactory implements ICommandExecutorFactory {
 
     @Override
-    public ICommandExecutor createCommandExecutor(URL managementURI, Credentials credentials) throws CommunicatorException {
-        return new CommandExecutor(HttpUtils.createServerManagementEndpointClient(managementURI, credentials));
+    public ICommandExecutor createCommandExecutor(URL managementURI, boolean trustEveryone, Credentials credentials) throws CommunicatorException {
+        return new CommandExecutor(HttpUtils.createServerManagementEndpointClient(managementURI, trustEveryone, credentials));
     }
 }

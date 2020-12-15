@@ -28,29 +28,35 @@ public class Server {
 
     private final String id;
     private final URL url;
+    private final boolean trustEveryone;
     private final Credentials credentials;
-    
-    public Server(String id, URL url, Credentials credentials) {
+
+    public Server(String id, URL url, boolean trustEveryone, Credentials credentials) {
         this.id = id;
         this.url = url;
+        this.trustEveryone = trustEveryone;
         this.credentials = credentials;
     }
-    
+
     public String getId() {
         return id;
     }
-    
+
     public URL getURL() {
         return url;
     }
-    
+
+    public boolean isTrustEveryone() {
+        return trustEveryone;
+    }
+
     public Credentials getCredentials() {
         return credentials;
     }
-    
+
     @Override
     public String toString() {
         return id;
     }
-    
+
 }

@@ -54,6 +54,7 @@ public class CliUtils {
     private static final String LONG_PARAM_PASS = "password";
     private static final String LONG_SERVERS_PARAM = "servers";
     private static final String LONG_USE_SERVER_PARAM = "use-server";
+    private static final String LONG_TRUST_EVERYONE_PARAM = "trust-everyone";
     public static final String DEFAULT_SERVER_ID = "Default";
     private static final String PARAM_OUTPUT_FORMAT = "of";
     private static final String LONG_PARAM_OUTPUT_FORMAT = "output-format";
@@ -119,6 +120,8 @@ public class CliUtils {
     public static Options addConnectionOptions(Options opts) {
         opts.addOption(PARAM_URL, LONG_PARAM_URL, true,
                 "URL of the server management endpoint.");
+        opts.addOption(null, LONG_TRUST_EVERYONE_PARAM, false,
+                "Don't validate server certificates. (may be a security risk)");
         opts.addOption(PARAM_USER, LONG_PARAM_USER, true,
                 "Username for server management endpoint connection.");
         opts.addOption(PARAM_PASS, LONG_PARAM_PASS, true,
@@ -194,7 +197,7 @@ public class CliUtils {
                 throw new SVCParseException("No server management URL defined");
             } else if (srv.getURL() == null) {
                 srv = new Server(srv.getId(), project.getServerUrl(),
-                        srv.getCredentials());
+                        line.hasOption(LONG_TRUST_EVERYONE_PARAM), srv.getCredentials());
             }
             return Arrays.asList(srv);
         }
@@ -219,8 +222,9 @@ public class CliUtils {
                     .getOptionValue(PARAM_PASS) : null;
             Credentials credentials = username != null ? new Credentials(
                     username, password) : null;
+            boolean trustEveryone = line.hasOption(LONG_TRUST_EVERYONE_PARAM);
 
-            return new Server(DEFAULT_SERVER_ID, mgmtUri, credentials);
+            return new Server(DEFAULT_SERVER_ID, mgmtUri, trustEveryone, credentials);
         } catch (MalformedURLException e) {
             throw new SVCParseException("Invalid URL defined: '"
                     + line.getOptionValue(PARAM_URL) + "'", e);

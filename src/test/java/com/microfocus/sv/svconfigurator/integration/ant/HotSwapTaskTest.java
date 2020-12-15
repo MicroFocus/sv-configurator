@@ -20,8 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.integration.ant;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 
 import org.junit.After;
@@ -43,6 +41,9 @@ import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.impl.CommandExecutor;
 import com.microfocus.sv.svconfigurator.util.HttpUtils;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 @Category(IntegrationTest.class)
 @Ignore(value="Obsolete project")
 public class HotSwapTaskTest {
@@ -56,7 +57,7 @@ public class HotSwapTaskTest {
     public void setUp() throws Exception {
         this.projectFile = TestConst.getClaimDemoProject();
         this.proj = new ProjectBuilder().buildProject(this.projectFile, null);
-        this.ce = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD)));
+        this.ce = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, true, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD)));
 
         this.ce.deployProject(this.proj);
 

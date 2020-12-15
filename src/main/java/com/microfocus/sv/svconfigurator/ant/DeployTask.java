@@ -51,6 +51,7 @@ public class DeployTask extends Task {
     private boolean force;
     private boolean undeploy = false;
     private String url;
+    private boolean trustEveryone = false;
     private String username;
     private String password;
     private String service;
@@ -72,7 +73,7 @@ public class DeployTask extends Task {
         URL uri = AntTaskUtil.createUri(this.url, proj);
 
         try {
-            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(uri, credentials));
+            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(uri, trustEveryone, credentials));
             exec.setForce(this.force);
 
             IService svc = null;
@@ -123,6 +124,8 @@ public class DeployTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
 
     public void setUsername(String username) {
         this.username = username;

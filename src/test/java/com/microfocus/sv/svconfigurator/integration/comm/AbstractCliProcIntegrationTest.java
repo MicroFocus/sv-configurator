@@ -20,20 +20,17 @@
  */
 package com.microfocus.sv.svconfigurator.integration.comm;
 
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.Service;
 import com.microfocus.sv.svconfigurator.core.impl.datasource.InexistingProjectElementDataSource;
-import com.microfocus.sv.svconfigurator.core.impl.encryption.EncryptedNode;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.atom.ServiceListAtom;
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
 import com.microfocus.sv.svconfigurator.core.impl.processor.ElementStatus;
 import com.microfocus.sv.svconfigurator.integration.TestConst;
 import com.microfocus.sv.svconfigurator.serverclient.IServerManagementEndpointClient;
 import com.microfocus.sv.svconfigurator.util.HttpUtils;
+
+import static org.junit.Assert.fail;
 
 public class AbstractCliProcIntegrationTest {
     protected static IServerManagementEndpointClient spc;
@@ -57,7 +54,7 @@ public class AbstractCliProcIntegrationTest {
     }
 
     public static void setUpClass() throws Exception {
-        spc = HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD));
+        spc = HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, true, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD));
     }
 
     protected IService createDummyService(String id) {

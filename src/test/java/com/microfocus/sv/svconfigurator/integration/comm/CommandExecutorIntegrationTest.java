@@ -20,11 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.integration.comm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,6 +45,11 @@ import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.impl.CommandExecutor;
 import com.microfocus.sv.svconfigurator.util.HttpUtils;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 @Category(IntegrationTest.class)
 @Ignore(value="Obsolete project")
 public class CommandExecutorIntegrationTest {
@@ -69,7 +69,7 @@ public class CommandExecutorIntegrationTest {
     public void setUp() throws Exception {
         this.projectFile = TestConst.getClaimDemoProject();
         this.proj = new ProjectBuilder().buildProject(this.projectFile, null);
-        this.ce = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD)));
+        this.ce = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(TestConst.MGMT_TST_URI, true, new Credentials(TestConst.MGMT_TST_USERNAME, TestConst.MGMT_TST_PASSWORD)));
 
         this.ce.deployProject(this.proj);
     }

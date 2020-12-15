@@ -49,6 +49,7 @@ public class ListTask extends Task {
     private String username;
     private String password;
     private String url;
+    private boolean trustEveryone = false;
     private String projectPassword;
     private String outputFormat = PrinterFactory.getDefaultFormat();
 
@@ -68,7 +69,7 @@ public class ListTask extends Task {
         Credentials cred = ProjectUtils.createCredentials(this.username, this.password);
 
         try {
-            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, cred));
+            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, trustEveryone, cred));
 
             IProject proj = this.projectFile != null ? AntTaskUtil.createProject(this.projectFile, projectPassword) : null;
             IPrinter printer = PrinterFactory.create(outputFormat);
@@ -108,6 +109,8 @@ public class ListTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
 
     public void setProjectPassword(String projectPassword) {
         this.projectPassword = projectPassword;

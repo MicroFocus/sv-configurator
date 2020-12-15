@@ -56,6 +56,7 @@ public class ViewTask extends Task {
     private boolean report;
     private String projectPassword;
     private String outputFormat = PrinterFactory.getDefaultFormat();
+    private boolean trustEveryone = false;
 
     //============================== STATIC METHODS ===========================================
 
@@ -73,7 +74,7 @@ public class ViewTask extends Task {
         Credentials cred = ProjectUtils.createCredentials(this.username, this.password);
 
         try {
-            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, cred));
+            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, trustEveryone, cred));
 
             IProject proj = this.projectFile != null ? AntTaskUtil.createProject(this.projectFile, this.projectPassword) : null;
             IService svc = exec.findService(this.service, proj);
@@ -121,6 +122,8 @@ public class ViewTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
 
     public void setReport(boolean report) {
         this.report = report;

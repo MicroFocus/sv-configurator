@@ -53,6 +53,7 @@ public class ServerParser {
     public static final String URL_SUFFIX = ".url";
     public static final String USERNAME_SUFFIX = ".username";
     public static final String PASSWORD_SUFFIX = ".password";
+    public static final String TRUST_EVERYONE_SUFFIX = ".trustEveryone";
 
     public static List<Server> parseServers(File inputFile, String selectedServerId)
             throws AbstractSVCException {
@@ -114,14 +115,15 @@ public class ServerParser {
                     .getProperty(serverId + USERNAME_SUFFIX);
             String passwordValue = props
                     .getProperty(serverId + PASSWORD_SUFFIX);
+            boolean trustEveryone = "true".equalsIgnoreCase(props.getProperty(serverId + TRUST_EVERYONE_SUFFIX));
 
             try {
                 Server srv;
                 if (usernameValue == null && passwordValue == null) {
-                    srv = new Server(serverId, new URL(urlValue), null);
+                    srv = new Server(serverId, new URL(urlValue), trustEveryone, null);
                 } else if (usernameValue != null && passwordValue != null) {
                     srv = new Server(serverId, new URL(urlValue),
-                            new Credentials(usernameValue, passwordValue));
+                            trustEveryone, new Credentials(usernameValue, passwordValue));
                 } else {
                     throw new SVCParseException("Server ID '" + serverId
                             + "' is missing username or password.");

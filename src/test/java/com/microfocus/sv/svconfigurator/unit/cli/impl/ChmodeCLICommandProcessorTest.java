@@ -20,19 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.unit.cli.impl;
 
-import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTP;
-import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTPS;
-import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR5;
-import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR6;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-
 import java.io.File;
 import java.net.URL;
 
@@ -55,6 +42,19 @@ import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
 import com.microfocus.sv.svconfigurator.unit.cli.CliTestConst;
 
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTP;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTPS;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR5;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR6;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+
 public class ChmodeCLICommandProcessorTest {
 
     private IChmodeProcessor mockProc;
@@ -71,8 +71,8 @@ public class ChmodeCLICommandProcessorTest {
         this.mockExecutor = Mockito.mock(ICommandExecutor.class);
         this.cliProc = new ChmodeCLICommandProcessor(this.mockBuild, this.mockProc);
         when(this.mockProc.getCommandExecutorFactory()).thenReturn(mockFactory);
-        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), new Credentials(STR5, STR6))).thenReturn(mockExecutor);
-        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTP), null)).thenReturn(mockExecutor);
+        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), true, new Credentials(STR5, STR6))).thenReturn(mockExecutor);
+        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTP), true, null)).thenReturn(mockExecutor);
     }
 
     @Test

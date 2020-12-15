@@ -20,6 +20,15 @@
  */
 package com.microfocus.sv.svconfigurator.unit.cli.impl;
 
+import java.io.File;
+import java.net.URL;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+
 import com.microfocus.sv.svconfigurator.build.IProjectBuilder;
 import com.microfocus.sv.svconfigurator.cli.impl.DeployCLICommandProcessor;
 import com.microfocus.sv.svconfigurator.core.IProject;
@@ -30,21 +39,23 @@ import com.microfocus.sv.svconfigurator.processor.IDeployProcessor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-
-import java.io.File;
-import java.net.URL;
-
-import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.*;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.PWD;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR1;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR10;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR3;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTPS;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR5;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR9;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.URL;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.USR;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.isNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DeployCLICommandProcessorTest {
 
@@ -64,7 +75,7 @@ public class DeployCLICommandProcessorTest {
         this.mockExecutor = Mockito.mock(ICommandExecutor.class);
         this.cliProc = new DeployCLICommandProcessor(this.mockBuild, this.mockProc);
         when(this.mockProc.getCommandExecutorFactory()).thenReturn(mockFactory);
-        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), new Credentials(STR1, STR3))).thenReturn(mockExecutor);
+        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), true, new Credentials(STR1, STR3))).thenReturn(mockExecutor);
         this.dummyProject = new Project(STR10, STR9, null, null, null);
         when(this.mockBuild.buildProject(any(File.class), anyString())).thenReturn(this.dummyProject);
     }

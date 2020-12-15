@@ -41,6 +41,7 @@ It allows you to keep your SV server credentials in a file (secured with proper 
 srvA.url = https://svA.example.com:6085/api
 srvA.username = testerA
 srvA.password = changeit
+srvA.trustEveryone = true
 
 srvB.url = http://svB.example.com:6085/api
 srvB.username = testerB

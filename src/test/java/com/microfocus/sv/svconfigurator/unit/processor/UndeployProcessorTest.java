@@ -20,9 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.unit.processor;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 import java.net.URL;
 
 import org.junit.Before;
@@ -41,6 +38,9 @@ import com.microfocus.sv.svconfigurator.processor.UndeployProcessorInput;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutor;
 import com.microfocus.sv.svconfigurator.serverclient.ICommandExecutorFactory;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
 public class UndeployProcessorTest {
 
     private IUndeployProcessor proc;
@@ -57,7 +57,7 @@ public class UndeployProcessorTest {
         Mockito.when(this.executor.findService("My Super", null)).thenReturn(this.svc);
         
         this.factory = Mockito.mock(ICommandExecutorFactory.class);
-        Mockito.when(this.factory.createCommandExecutor(Mockito.any(URL.class), Mockito.any(Credentials.class))).thenReturn(this.executor);
+        Mockito.when(this.factory.createCommandExecutor(Mockito.any(URL.class), true, Mockito.any(Credentials.class))).thenReturn(this.executor);
         
         this.proc = new UndeployProcessor(factory);
     }
@@ -66,7 +66,7 @@ public class UndeployProcessorTest {
     public void testSimpleProcess() throws Exception {
         UndeployProcessorInput input = new UndeployProcessorInput(false, null, "My Super");
         
-        this.proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(TestConst.MGMT_TST_URI, new Credentials("xyz", "password")));
+        this.proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(TestConst.MGMT_TST_URI, true, new Credentials("xyz", "password")));
         
         this.verifyFactory(TestConst.MGMT_TST_URI, "xyz", "password");
         
@@ -82,7 +82,7 @@ public class UndeployProcessorTest {
         IProject proj = new ProjectBuilder().buildProject(TestConst.getClaimDemoProject(), null);
         UndeployProcessorInput input = new UndeployProcessorInput(false, proj, null);
         
-        this.proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(TestConst.MGMT_TST_URI, new Credentials("abcd", "qwertz")));
+        this.proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(TestConst.MGMT_TST_URI, true, new Credentials("abcd", "qwertz")));
         
         this.verifyFactory(TestConst.MGMT_TST_URI, "abcd", "qwertz");
         
@@ -99,7 +99,7 @@ public class UndeployProcessorTest {
     private void verifyFactory(URL url, String username, String password) throws Exception {
         ArgumentCaptor<Credentials> credArgCaptor = ArgumentCaptor.forClass(Credentials.class);
         ArgumentCaptor<URL> uriArgCaptor = ArgumentCaptor.forClass(URL.class);
-        Mockito.verify(this.factory).createCommandExecutor(uriArgCaptor.capture(), credArgCaptor.capture());
+        Mockito.verify(this.factory).createCommandExecutor(uriArgCaptor.capture(), true, credArgCaptor.capture());
         Mockito.verifyNoMoreInteractions(this.factory);
         
         assertEquals(username, credArgCaptor.getValue().getUsername());

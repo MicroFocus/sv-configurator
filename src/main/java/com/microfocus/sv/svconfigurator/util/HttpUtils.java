@@ -46,8 +46,8 @@ public class HttpUtils {
 
     //============================== STATIC METHODS ===========================================
 
-    public static IServerManagementEndpointClient createServerManagementEndpointClient(URL mgmtUri, Credentials credentials) throws CommunicatorException {
-        HttpClient httpClient = trustEveryoneSslHttpClient();
+    public static IServerManagementEndpointClient createServerManagementEndpointClient(URL mgmtUri, boolean trustEveryone, Credentials credentials) throws CommunicatorException {
+        HttpClient httpClient = (trustEveryone) ? trustEveryoneSslHttpClient() : new DefaultHttpClient();
         IRestClient restClient = new RestClient(credentials, httpClient);
 
         return new ServerManagementEndpointClient(mgmtUri, restClient);

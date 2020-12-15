@@ -44,6 +44,7 @@ public class UnlockTask extends Task {
     private String username;
     private String password;
     private String url;
+    private boolean trustEveryone = false;
     private boolean lock;
 
     //============================== STATIC METHODS ===========================================
@@ -62,7 +63,7 @@ public class UnlockTask extends Task {
         Credentials cred = ProjectUtils.createCredentials(this.username, this.password);
 
         try {
-            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, cred));
+            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(mgmtUri, trustEveryone, cred));
 
             IService svc = exec.findService(this.service, null);
             String clientId = lock ? Global.getClientId(exec) : null;
@@ -108,6 +109,8 @@ public class UnlockTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
 
     public void setLock(boolean lock) {
         this.lock = lock;

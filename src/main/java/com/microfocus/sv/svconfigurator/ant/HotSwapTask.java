@@ -53,6 +53,7 @@ public class HotSwapTask extends Task {
     private String username;
     private String password;
     private String url;
+    private boolean trustEveryone = false;
 
     // ============================== STATIC METHODS
     // ===========================================
@@ -77,7 +78,7 @@ public class HotSwapTask extends Task {
             IHotSwapProcessor proc = new HotSwapProcessor(new CommandExecutorFactory());
             
             HotSwapProcessorInput input = new HotSwapProcessorInput(this.force, service, this.pm);
-            proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(uri, credentials));
+            proc.process(input, proc.getCommandExecutorFactory().createCommandExecutor(uri, trustEveryone, credentials));
         } catch (CommunicatorException e) {
             throw new BuildException(e.getLocalizedMessage(), e);
         } catch (CommandExecutorException e) {
@@ -135,6 +136,8 @@ public class HotSwapTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
     
     // ============================== INNER CLASSES
     // ============================================

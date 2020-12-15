@@ -57,6 +57,7 @@ public class ChmodeTask extends Task {
     private String username;
     private String password;
     private String url;
+    private boolean trustEveryone = false;
     private String projectPassword;
 
     //============================== STATIC METHODS ===========================================
@@ -76,7 +77,7 @@ public class ChmodeTask extends Task {
         URL uri = AntTaskUtil.createUri(this.url, proj);
 
         try {
-            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(uri, credentials));
+            ICommandExecutor exec = new CommandExecutor(HttpUtils.createServerManagementEndpointClient(uri, trustEveryone, credentials));
             exec.setForce(this.force);
 
             IService svc = proj == null
@@ -173,6 +174,8 @@ public class ChmodeTask extends Task {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTrustEveryone(boolean trustEveryone) { this.trustEveryone = trustEveryone; }
 
     public void setProjectPassword(String projectPassword) {
         this.projectPassword = projectPassword;
