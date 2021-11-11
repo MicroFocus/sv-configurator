@@ -48,6 +48,7 @@ import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR5;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR9;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.URL;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.USR;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.TRUST_EVERYONE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
@@ -91,7 +92,7 @@ public class DeployCLICommandProcessorTest {
 
     @Test
     public void testDeploy() throws Exception {
-        String[] params = new String[] {URL, STR4_HTTPS, USR, STR1, PWD, STR3, STR5};
+        String[] params = new String[] {URL, STR4_HTTPS, USR, STR1, PWD, STR3, TRUST_EVERYONE, STR5};
         assertSame("result", 0, this.cliProc.process(params));
 
         verify(this.mockBuild, times(1)).buildProject(any(File.class), (String)isNull());

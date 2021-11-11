@@ -42,5 +42,6 @@ public class CliTestConst {
     public static final String USR = "-usr";
     public static final String PWD = "-pwd";
     public static final String PROJECT = "-p";
+    public static final String TRUST_EVERYONE = "--trust-everyone";
     private static final String PROJ_PWD = "-w";
 }

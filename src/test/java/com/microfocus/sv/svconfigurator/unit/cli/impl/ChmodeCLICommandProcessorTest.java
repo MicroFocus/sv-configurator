@@ -44,8 +44,19 @@ import com.microfocus.sv.svconfigurator.unit.cli.CliTestConst;
 
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTP;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR4_HTTPS;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR1;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR2;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR3;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR5;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.STR6;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.DM;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.PM;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.URL;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.USR;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.PWD;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.PROJECT;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.FORCE;
+import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.TRUST_EVERYONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -72,7 +83,7 @@ public class ChmodeCLICommandProcessorTest {
         this.cliProc = new ChmodeCLICommandProcessor(this.mockBuild, this.mockProc);
         when(this.mockProc.getCommandExecutorFactory()).thenReturn(mockFactory);
         when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), true, new Credentials(STR5, STR6))).thenReturn(mockExecutor);
-        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTP), true, null)).thenReturn(mockExecutor);
+        when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTP), false, null)).thenReturn(mockExecutor);
     }
 
     @Test
@@ -86,7 +97,7 @@ public class ChmodeCLICommandProcessorTest {
 
     @Test
     public void testSimulate_DM_PM_URL_USER_PASS_PROJ_FORCE() throws Exception {
-        String[] args = new String[]{CliTestConst.PM, CliTestConst.STR1, CliTestConst.DM, CliTestConst.STR3, CliTestConst.URL, CliTestConst.STR4_HTTPS, CliTestConst.USR, CliTestConst.STR5, CliTestConst.PWD, CliTestConst.STR6, CliTestConst.PROJECT, CliTestConst.STR2, CliTestConst.FORCE, CliTestConst.STR2, "SIMULATING"};
+        String[] args = new String[]{PM, STR1, DM, STR3, URL, STR4_HTTPS, USR, STR5, PWD, STR6, PROJECT, STR2, FORCE, TRUST_EVERYONE, STR2, "SIMULATING"};
         IProject proj = new Project(CliTestConst.STR7, null, null, null, null);
         Mockito.when(this.mockBuild.buildProject(Mockito.any(File.class), Mockito.anyString())).thenReturn(proj);
 

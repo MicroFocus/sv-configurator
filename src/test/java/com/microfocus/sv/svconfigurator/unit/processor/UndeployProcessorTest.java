@@ -57,7 +57,7 @@ public class UndeployProcessorTest {
         Mockito.when(this.executor.findService("My Super", null)).thenReturn(this.svc);
         
         this.factory = Mockito.mock(ICommandExecutorFactory.class);
-        Mockito.when(this.factory.createCommandExecutor(Mockito.any(URL.class), true, Mockito.any(Credentials.class))).thenReturn(this.executor);
+        Mockito.when(this.factory.createCommandExecutor(Mockito.any(URL.class), Mockito.eq(true), Mockito.any(Credentials.class))).thenReturn(this.executor);
         
         this.proc = new UndeployProcessor(factory);
     }
@@ -99,7 +99,7 @@ public class UndeployProcessorTest {
     private void verifyFactory(URL url, String username, String password) throws Exception {
         ArgumentCaptor<Credentials> credArgCaptor = ArgumentCaptor.forClass(Credentials.class);
         ArgumentCaptor<URL> uriArgCaptor = ArgumentCaptor.forClass(URL.class);
-        Mockito.verify(this.factory).createCommandExecutor(uriArgCaptor.capture(), true, credArgCaptor.capture());
+        Mockito.verify(this.factory).createCommandExecutor(uriArgCaptor.capture(), Mockito.eq(true), credArgCaptor.capture());
         Mockito.verifyNoMoreInteractions(this.factory);
         
         assertEquals(username, credArgCaptor.getValue().getUsername());
