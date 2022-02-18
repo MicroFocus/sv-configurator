@@ -479,9 +479,6 @@ public class CommandExecutor implements ICommandExecutor {
      */
     private void validateServiceRuntime(ServiceRuntimeConfiguration conf) throws CommandExecutorException {
         switch (conf.getRuntimeMode()) {
-            case OFFLINE: {
-                throw new CommandExecutorException("You can't switch the service into the Offline mode.");
-            }
             case STAND_BY: {
                 if (conf.getDataModel() != null) {
                     throw new CommandExecutorException(

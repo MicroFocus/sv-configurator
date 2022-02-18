@@ -184,7 +184,7 @@ public class ChmodeCLICommandProcessor extends AbstractProjectCommandProcessor i
 
         opts.addOption(MANDAT_PARAM_SVC, false, "Identification of the service (ID or the name) whose mode we want to change. There can be more services with the same name in the server. In this case you will be asked either to use the ID of the service or specify the project where the service is. Unfortunately there can also be more services with the same name in the project and if they are, you have to use the service ID.");
         opts.addOption(MANDAT_PARAM_MODE, false, "New service mode. Mode have to be one of these values: " +
-                StringUtils.joinWithDelim(", ", ServiceRuntimeConfiguration.RuntimeMode.STAND_BY, ServiceRuntimeConfiguration.RuntimeMode.SIMULATING, ServiceRuntimeConfiguration.RuntimeMode.LEARNING)
+                StringUtils.joinWithDelim(", ", ServiceRuntimeConfiguration.RuntimeMode.STAND_BY, ServiceRuntimeConfiguration.RuntimeMode.SIMULATING, ServiceRuntimeConfiguration.RuntimeMode.LEARNING, ServiceRuntimeConfiguration.RuntimeMode.OFFLINE)
                 + ". Service mode values are case in-sensitive and '" + STAND_BY_ALTERNATIVE_VALUE + "' stands for '" + ServiceRuntimeConfiguration.RuntimeMode.STAND_BY +"' to keep compatibility with the LIST command.");
 
         return opts;
