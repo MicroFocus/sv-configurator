@@ -31,7 +31,7 @@ SVConfigurator supports the following operations:
 **Note:** If you use encrypted SV project (**`-w`** or **`--project-password options`**), you must download and install JCE Unlimited Strength Jurisdiction Policy Files for your JDK version from https://www.oracle.com/technetwork/java/javase/downloads/jce-all-download-5170447.html
 
 ## Binaries
-SVConfigurator binaries can be found in this maven repo: https://dl.bintray.com/adm/maven/com/microfocus/sv/SVConfigurator/
+SVConfigurator binaries can be found in this maven repo: https://search.maven.org/artifact/com.microfocus.sv/SVConfigurator
 
 ## Servers file format
 A _servers_ file in accord with the example bellow can be specified by **`--servers`** parameter to all commands connecting to SV server. 
