@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.FileHeader;
 

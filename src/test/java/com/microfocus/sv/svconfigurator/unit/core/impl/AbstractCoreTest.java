@@ -22,7 +22,7 @@ package com.microfocus.sv.svconfigurator.unit.core.impl;
 
 import com.microfocus.sv.svconfigurator.resources.Resources;
 
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import org.junit.Before;
 import org.junit.Test;
 

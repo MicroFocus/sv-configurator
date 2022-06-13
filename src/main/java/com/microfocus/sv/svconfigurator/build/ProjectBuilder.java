@@ -47,7 +47,7 @@ import com.microfocus.sv.svconfigurator.core.impl.visitor.DataSetFilter;
 import com.microfocus.sv.svconfigurator.core.impl.visitor.ProjectVisitorAdapter;
 import com.microfocus.sv.svconfigurator.core.impl.visitor.ServiceChildElementFilter;
 import com.microfocus.sv.svconfigurator.util.XmlUtils;
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.FileHeader;
 import org.slf4j.Logger;
@@ -184,7 +184,7 @@ public class ProjectBuilder implements IProjectBuilder {
                 if (projectPassword == null || projectPassword.length() == 0) {
                     throw new ProjectBuilderException("Project archive '" + archive.getAbsolutePath() + "' is encrypted but project password is not specified");
                 }
-                zipFile.setPassword(projectPassword);
+                zipFile.setPassword(projectPassword.toCharArray());
             }
             //find .vproj file
             FileHeader proj = null;
