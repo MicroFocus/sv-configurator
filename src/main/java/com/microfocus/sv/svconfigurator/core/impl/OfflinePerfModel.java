@@ -7,7 +7,7 @@
  * __________________________________________________________________
  * MIT License
  *
- * Copyright (c) 2012-2018 Micro Focus or one of its affiliates.
+ * Copyright (c) 2012-2022 Micro Focus or one of its affiliates.
  *
  * The only warranties for products and services of Micro Focus and its affiliates
  * and licensors ("Micro Focus") are set forth in the express warranty statements
