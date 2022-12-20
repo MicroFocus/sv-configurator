@@ -20,7 +20,7 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb.helper;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
  * vs:service / vs:dataModel / vs:performanceModel element in the virtualServiceRuntimeConfiguration element

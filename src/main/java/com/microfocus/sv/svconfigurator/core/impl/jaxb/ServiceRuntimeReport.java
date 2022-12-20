@@ -20,14 +20,14 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb;
 
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import static com.microfocus.sv.svconfigurator.core.impl.jaxb.ServiceRuntimeReport.NAMESPACE;
 
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "runtimeReport", namespace = NAMESPACE)
 public class ServiceRuntimeReport {

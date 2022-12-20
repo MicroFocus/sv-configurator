@@ -20,17 +20,10 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import com.microfocus.sv.svconfigurator.core.IService;
 import com.microfocus.sv.svconfigurator.core.impl.jaxb.helper.ReferenceElement;
 import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "virtualServiceRuntimeConfiguration", namespace = ServiceRuntimeConfiguration.NAMESPACE)
 @XmlType(propOrder = { "service", "dataModel", "perfModel", "clientId", "runtimeMode", "logMessages", "deploymentErrorMessage", "deploymentState" })

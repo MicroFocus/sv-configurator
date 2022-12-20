@@ -20,10 +20,10 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb.atom;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Date;
 
 import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
+import jakarta.xml.bind.annotation.XmlElement;
 
 public abstract class AbstractEntry {
     //============================== STATIC ATTRIBUTES ========================================

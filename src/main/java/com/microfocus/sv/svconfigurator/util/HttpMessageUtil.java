@@ -20,11 +20,12 @@
  */
 package com.microfocus.sv.svconfigurator.util;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.http.entity.ContentType;
 import org.apache.http.message.AbstractHttpMessage;
 
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
+
+import java.util.Base64;
 
 public class HttpMessageUtil {
     //============================== STATIC ATTRIBUTES ========================================
@@ -48,7 +49,7 @@ public class HttpMessageUtil {
     }
 
     public static void basicAuthentication(AbstractHttpMessage m, String username, String password) {
-        String auth = "Basic " + new String(Base64.encodeBase64((username + ":" + password).getBytes()));
+        String auth = "Basic " + new String(Base64.getEncoder().encodeToString((username + ":" + password).getBytes()));
         m.setHeader(KEY_AUTHORIZATION, auth);
     }
 

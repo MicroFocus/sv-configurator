@@ -20,10 +20,10 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb;
 
-import java.util.List;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement(name = "agentConfigurations", namespace = AgentConfigurations.NAMESPACE)
 public class AgentConfigurations {

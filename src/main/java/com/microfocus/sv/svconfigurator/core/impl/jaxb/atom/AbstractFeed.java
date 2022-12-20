@@ -20,11 +20,10 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb.atom;
 
+import jakarta.xml.bind.annotation.XmlElement;
+
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-
 
 public abstract class AbstractFeed<E extends AbstractEntry> {
     //============================== STATIC ATTRIBUTES ========================================

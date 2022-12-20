@@ -21,13 +21,7 @@
 package com.microfocus.sv.svconfigurator.processor;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.microfocus.sv.svconfigurator.build.parser.DataModelElementParser;
 import com.microfocus.sv.svconfigurator.build.parser.DataSetElementParser;
@@ -47,7 +41,6 @@ import com.microfocus.sv.svconfigurator.processor.utils.DataModelContentFilesExt
 import com.microfocus.sv.svconfigurator.serverclient.FileInfo;
 import com.microfocus.sv.svconfigurator.serverclient.IServerManagementEndpointClient;
 import com.microfocus.sv.svconfigurator.util.XmlUtils;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -225,7 +218,7 @@ public class ExportProcessor {
                 if(metadata.containsKey("xmlns")) {
                     metadata.remove("xmlns");
                 }
-                return Base64.decodeBase64(doc.getLastChild().getTextContent().getBytes());
+                return Base64.getDecoder().decode(doc.getLastChild().getTextContent().getBytes());
             } catch (Exception e) {
                 throw new SVCParseException("Content File metadata extraction failed", e);
             }

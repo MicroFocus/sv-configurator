@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -55,7 +55,7 @@ public class ZipWriter extends AbstractWriter {
 
         // write project name as comment
         byte[] bytes = projectName.getBytes(Charset.forName("utf-16LE"));
-        zipOutputStream.setComment(DatatypeConverter.printBase64Binary(bytes));
+        zipOutputStream.setComment(Base64.getEncoder().encodeToString(bytes));
     }
 
     @Override

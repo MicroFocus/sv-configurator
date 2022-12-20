@@ -20,8 +20,6 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb.atom;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +29,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.microfocus.sv.svconfigurator.processor.printer.NonPrintable;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "feed", namespace = AbstractFeed.NAMESPACE)
 public class ServiceListAtom extends AbstractFeed<ServiceListAtom.ServiceEntry> {

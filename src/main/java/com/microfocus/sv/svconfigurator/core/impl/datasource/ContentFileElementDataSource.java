@@ -25,9 +25,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.Map;
 import com.microfocus.sv.svconfigurator.core.IProjectElementDataSource;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -79,7 +79,7 @@ public class ContentFileElementDataSource implements IProjectElementDataSource {
         byte[] rawContentBytes = new byte[(int) rawFileContentLength];
         rawFileContentStream.read(rawContentBytes, 0, rawContentBytes.length);
         rawFileContentStream.close();
-        String rawContentBase64 = Base64.encode(rawContentBytes);
+        String rawContentBase64 = Base64.getEncoder().encodeToString(rawContentBytes);
         rootElement.setTextContent(rawContentBase64);
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();

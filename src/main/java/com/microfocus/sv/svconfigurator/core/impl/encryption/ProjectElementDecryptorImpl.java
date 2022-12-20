@@ -29,12 +29,7 @@ import java.io.InputStream;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +54,6 @@ import javax.xml.xpath.XPathFactory;
 
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionMetadata;
 import com.microfocus.sv.svconfigurator.core.encryption.EncryptionVersions;
-import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -150,7 +144,7 @@ public class ProjectElementDecryptorImpl implements ProjectElementDecryptor {
 
     public String decryptString(String text, String password) throws SVCParseException {
         try {
-            byte[] encryptedValue = Base64.decodeBase64(text.getBytes("UTF-8"));
+            byte[] encryptedValue = Base64.getDecoder().decode(text.getBytes("UTF-8"));
 
             PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray(), aesSalt.getBytes("UTF-8"), 1000, 2*8*48);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");

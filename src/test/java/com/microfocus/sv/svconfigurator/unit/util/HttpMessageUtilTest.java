@@ -22,10 +22,11 @@ package com.microfocus.sv.svconfigurator.unit.util;
 
 import com.microfocus.sv.svconfigurator.core.impl.processor.Credentials;
 import com.microfocus.sv.svconfigurator.util.HttpMessageUtil;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
 import org.junit.Test;
+
+import java.util.Base64;
 
 import static org.junit.Assert.assertEquals;
 
@@ -67,7 +68,7 @@ public class HttpMessageUtilTest {
         HttpGet get = new HttpGet();
         HttpMessageUtil.basicAuthentication(get, new Credentials("user", "pass"));
 
-        String base64 = new String(Base64.encodeBase64("user:pass".getBytes()));
+        String base64 = new String(Base64.getEncoder().encodeToString("user:pass".getBytes()));
         assertEquals("Basic "+ base64, get.getLastHeader("Authorization").getValue());
     }
 

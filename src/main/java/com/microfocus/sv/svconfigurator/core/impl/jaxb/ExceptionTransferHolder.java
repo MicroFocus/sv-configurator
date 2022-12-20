@@ -20,8 +20,8 @@
  */
 package com.microfocus.sv.svconfigurator.core.impl.jaxb;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "ExceptionTransferHolder", namespace = ExceptionTransferHolder.NAMESPACE)
 public class ExceptionTransferHolder {
