@@ -115,6 +115,12 @@ public class TextPrinter implements IPrinter {
         sb.append(String.format(TABLE_FORMAT_REPORT, "Unique Messages", rep.getUniqueMsgCount()));
         sb.append("\n");
 
+        sb.append(String.format(TABLE_FORMAT_REPORT, "Last Response", rep.getLastResponseTime() + " ms"));
+        sb.append(String.format(TABLE_FORMAT_REPORT, "Max Response", rep.getMaxResponseTime() + " ms"));
+        sb.append(String.format(TABLE_FORMAT_REPORT, "Min Response", rep.getMinResponseTime() + " ms"));
+        sb.append(String.format(TABLE_FORMAT_REPORT, "Standard Deviation", rep.getStandardDeviation() + " ms"));
+        sb.append("\n");
+
         List<String> clients = rep.getClientIds();
         if (clients != null) {
             sb.append(String.format(TABLE_FORMAT_REPORT, "Clients Count", clients.size()));

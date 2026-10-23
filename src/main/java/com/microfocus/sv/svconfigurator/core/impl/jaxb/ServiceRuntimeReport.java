@@ -49,6 +49,10 @@ public class ServiceRuntimeReport {
 
     private String serviceId;
 
+    private long lastResponseTime;
+    private long minResponseTime;
+    private long maxResponseTime;
+    private double standardDeviation;
 
     private int uniqueMsgCount;
     private SimulationStatistics simulationStats;
@@ -70,6 +74,43 @@ public class ServiceRuntimeReport {
     //============================== PRIVATE METHODS ==========================================
 
     //============================== GETTERS / SETTERS ========================================
+
+
+    @XmlAttribute(name = "lastResponseTime")
+    public long getLastResponseTime() {
+        return lastResponseTime;
+    }
+
+    public void setLastResponseTime(long lastResponseTime) {
+        this.lastResponseTime = lastResponseTime;
+    }
+
+    @XmlAttribute(name = "standardDeviation")
+    public double getStandardDeviation() {
+        return standardDeviation;
+    }
+
+    public void setStandardDeviation(double standardDeviation) {
+        this.standardDeviation = standardDeviation;
+    }
+
+    @XmlAttribute(name = "minResponseTime")
+    public long getMinResponseTime() {
+        return minResponseTime;
+    }
+
+    public void setMinResponseTime(long minResponseTime) {
+        this.minResponseTime = minResponseTime;
+    }
+
+    @XmlAttribute(name = "maxResponseTime")
+    public long getMaxResponseTime() {
+        return maxResponseTime;
+    }
+
+    public void setMaxResponseTime(long maxResponseTime) {
+        this.maxResponseTime = maxResponseTime;
+    }
 
     @XmlAttribute(name = "messageCount")
     public int getMessageCount() {

@@ -95,13 +95,10 @@ public class ViewCLICommandProcessor extends AbstractProjectCommandProcessor {
             List<Server> servers = CliUtils.obtainServers(line, null, true);
             final String outputFormat = CliUtils.obtainOutputFormat(line);
             final ViewProcessorInput input = new ViewProcessorInput(line.hasOption(PROPERTY_REPORT), proj, lineArgs[0], outputFormat);
-            ServersCommandExecutor executor = new ServersCommandExecutor(
-                    servers, proc.getCommandExecutorFactory());
+            ServersCommandExecutor executor = new ServersCommandExecutor(servers, proc.getCommandExecutorFactory());
             executor.execute(new IServerCommandRunner() {
-
                 @Override
-                public void runCommand(ICommandExecutor executor)
-                        throws AbstractSVCException {
+                public void runCommand(ICommandExecutor executor) throws AbstractSVCException {
                     proc.process(input, executor);
                 }
             });
