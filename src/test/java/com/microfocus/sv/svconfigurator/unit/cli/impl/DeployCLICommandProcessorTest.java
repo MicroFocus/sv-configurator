@@ -51,8 +51,8 @@ import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.USR;
 import static com.microfocus.sv.svconfigurator.unit.cli.CliTestConst.TRUST_EVERYONE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.isNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -78,7 +78,7 @@ public class DeployCLICommandProcessorTest {
         when(this.mockProc.getCommandExecutorFactory()).thenReturn(mockFactory);
         when(this.mockFactory.createCommandExecutor(new URL(STR4_HTTPS), true, new Credentials(STR1, STR3))).thenReturn(mockExecutor);
         this.dummyProject = new Project(STR10, STR9, null, null, null);
-        when(this.mockBuild.buildProject(any(File.class), anyString())).thenReturn(this.dummyProject);
+        when(this.mockBuild.buildProject(any(File.class), Mockito.nullable(String.class))).thenReturn(this.dummyProject);
     }
 
     @Test

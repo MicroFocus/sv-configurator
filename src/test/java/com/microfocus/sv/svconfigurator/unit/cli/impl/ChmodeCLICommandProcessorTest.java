@@ -99,7 +99,7 @@ public class ChmodeCLICommandProcessorTest {
     public void testSimulate_DM_PM_URL_USER_PASS_PROJ_FORCE() throws Exception {
         String[] args = new String[]{PM, STR1, DM, STR3, URL, STR4_HTTPS, USR, STR5, PWD, STR6, PROJECT, STR2, FORCE, TRUST_EVERYONE, STR2, "SIMULATING"};
         IProject proj = new Project(CliTestConst.STR7, null, null, null, null);
-        Mockito.when(this.mockBuild.buildProject(Mockito.any(File.class), Mockito.anyString())).thenReturn(proj);
+        Mockito.when(this.mockBuild.buildProject(Mockito.any(File.class), Mockito.nullable(String.class))).thenReturn(proj);
 
         assertSame(0, this.cliProc.process(args));
 
